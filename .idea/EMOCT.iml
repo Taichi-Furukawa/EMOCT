@@ -2,8 +2,19 @@
 <module type="CPP_MODULE" version="4">
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CUDAMath.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DensityDistribution.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/DensityDistribution.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Xorshift.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CTUtility.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ART.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/CTUtility.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ProjectionData.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ProjectionData.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ART.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ART_Main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/MersenneTwister.h" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
