@@ -14,5 +14,8 @@ set(SOURCE_FILES
         CUDAMath.h
         MersenneTwister.h
         Xorshift.h
-        )
+        GACT.cpp GACT.h
+        libs/table.h
+        libs/matrix.h
+         )
 add_executable(EMOCT ${SOURCE_FILES})
