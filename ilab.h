@@ -13,4 +13,4 @@
 #include "ilab/distribution.h"
 #include "ilab/projection.h"
 #include "ilab/projector.h"
-//#include "ilab/art.h"
+#include "ilab/art.h"

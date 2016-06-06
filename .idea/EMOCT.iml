@@ -5,9 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/CUDAMath.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/MersenneTwister.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mtrand.cpp" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/Xorshift.h" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/GACT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/mtrand.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/GACT.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gact_main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/GACT.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/CMakeLists.txt" isTestSource="false" />

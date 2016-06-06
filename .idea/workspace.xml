@@ -12,21 +12,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63472bc1-697c-44ef-9896-940ab9f01ce4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DensityDistribution.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/DensityDistribution.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ProjectionData.cpp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/ProjectionData.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/matrix.h" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libs/table.h" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/ART_Main.cpp" afterPath="$PROJECT_DIR$/gact_main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3D-DENSITY" afterPath="$PROJECT_DIR$/3D-DENSITY" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/EMOCT.iml" afterPath="$PROJECT_DIR$/.idea/EMOCT.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GACT.cpp" afterPath="$PROJECT_DIR$/GACT.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GACT.h" afterPath="$PROJECT_DIR$/GACT.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ilab.h" afterPath="$PROJECT_DIR$/ilab.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ilab/art.h" afterPath="$PROJECT_DIR$/ilab/art.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ilab/distribution.h" afterPath="$PROJECT_DIR$/ilab/distribution.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ilab/projector.h" afterPath="$PROJECT_DIR$/ilab/projector.h" />
     </list>
     <ignored path="EMOCT.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,13 +47,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="GACT.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="GACT.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GACT.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
+            <state relative-caret-position="1650">
+              <caret line="110" column="1" selection-start-line="110" selection-start-column="1" selection-end-line="110" selection-end-column="1" />
               <folding>
                 <element signature="e#991#1008#0" expanded="true" />
+                <marker date="1465213401000" expanded="true" signature="1332:1336" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="1700:1744" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="1960:2371" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="2403:3612" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="3671:3877" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="3908:4106" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="4131:4630" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="4656:7275" placeholder="{...}" />
+                <marker date="1465213401000" expanded="true" signature="7296:7922" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -90,11 +93,9 @@
       <file leaf-file-name="GACT.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/GACT.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="885">
-              <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
-              <folding>
-                <element signature="e#1033#1049#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="345">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -102,8 +103,18 @@
       <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+            <state relative-caret-position="225">
+              <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="distribution.h" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ilab/distribution.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1290">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -124,8 +135,8 @@
       <file leaf-file-name="ilab.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ilab.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -154,11 +165,12 @@
         <option value="$PROJECT_DIR$/libs/table.h" />
         <option value="$PROJECT_DIR$/projection.h" />
         <option value="$PROJECT_DIR$/ART_Main.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/gact_main.cpp" />
         <option value="$PROJECT_DIR$/ilab/projector.h" />
-        <option value="$PROJECT_DIR$/GACT.h" />
         <option value="$PROJECT_DIR$/GACT.cpp" />
+        <option value="$PROJECT_DIR$/GACT.h" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/ilab/distribution.h" />
       </list>
     </option>
   </component>
@@ -474,7 +486,7 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10500352" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15433404" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5325301" sideWeight="0.49119097" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3385542" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -542,13 +554,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gact_main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="840">
@@ -563,6 +568,15 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#991#1008#0" expanded="true" />
+            <marker date="1465213401000" expanded="true" signature="1332:1336" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="1700:1744" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="1960:2371" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="2403:3612" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="3671:3877" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="3908:4106" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="4131:4630" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="4656:7275" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="7296:7922" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -571,9 +585,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="18" column="29" selection-start-line="18" selection-start-column="29" selection-end-line="18" selection-end-column="29" />
-          <folding>
-            <element signature="e#1033#1049#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -777,6 +789,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="798">
           <caret line="223" column="5" selection-start-line="223" selection-start-column="5" selection-end-line="223" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -784,14 +797,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="5" column="57" selection-start-line="5" selection-start-column="57" selection-end-line="5" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -807,8 +812,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ilab.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -831,23 +836,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GACT.h">
+    <entry file="file://$PROJECT_DIR$/GACT.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="885">
-          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
+        <state relative-caret-position="1650">
+          <caret line="110" column="1" selection-start-line="110" selection-start-column="1" selection-end-line="110" selection-end-column="1" />
           <folding>
-            <element signature="e#1033#1049#0" expanded="true" />
+            <element signature="e#991#1008#0" expanded="true" />
+            <marker date="1465213401000" expanded="true" signature="1332:1336" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="1700:1744" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="1960:2371" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="2403:3612" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="3671:3877" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="3908:4106" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="4131:4630" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="4656:7275" placeholder="{...}" />
+            <marker date="1465213401000" expanded="true" signature="7296:7922" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GACT.cpp">
+    <entry file="file://$PROJECT_DIR$/GACT.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="136" column="31" selection-start-line="136" selection-start-column="31" selection-end-line="136" selection-end-column="31" />
-          <folding>
-            <element signature="e#991#1008#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="345">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ilab/distribution.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1290">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

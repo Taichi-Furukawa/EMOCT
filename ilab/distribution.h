@@ -49,7 +49,7 @@ public:
 	distribution(const std::string& _path, bool _is_binary = true)
 		: m_width(0), m_height(0), m_depth(0)
 	{
-		std::ifstream file(_path, std::ios::in | (_is_binary ? std::ios::binary : 0));
+		std::ifstream file(_path, _is_binary ? std::ios::in | std::ios::binary : std::ios::in);
 		if (!file)
 		{
 			// ファイルを開けなかった場合はエラー
@@ -88,7 +88,7 @@ public:
 
 	bool save(const std::string& _path, bool _is_binary = true) const
 	{
-		std::ofstream file(_path, std::ios::out | std::ios::trunc | (_is_binary ? std::ios::binary : 0));
+		std::ofstream file(_path, _is_binary ? std::ios::out | std::ios::trunc | std::ios::binary : std::ios::out | std::ios::trunc);
 		if (!file)
 		{
 			// ファイルを開けなかった場合はエラー

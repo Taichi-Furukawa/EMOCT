@@ -12,9 +12,9 @@
 
 #pragma once
 
+#include <cmath>
 #include <algorithm>
 #include <functional>
-#include <cmath>
 #include "distribution.h"
 #include "projection.h"
 
@@ -63,7 +63,7 @@ public:
 						const float real_point = direction_x + direction_y + center_y;
 						const size_t near_point = static_cast<size_t>(real_point);
 
-						if (near_point < 0 || near_point >= projected_points[i].height() - 1)
+						if (near_point >= projected_points[i].height() - 1)
 						{
 							projected_points[i].quantity(x, y, z) = -1.0f;
 							projected_points[i].identity(x, y, z) = blank_type::outside;
@@ -87,13 +87,13 @@ public:
 		return std::move(projected_points);
 	}
 	
-	projection project(const distribution& _distribution, const std::vector<float>& _angles)
+	projection project(const distribution& _distribution, const std::vector<float>& _angles) const
 	{
 		auto projected_points = calculate_projected_points(_distribution, _angles);
 		return std::move(project(_distribution, _angles, projected_points));
 	}
 
-	projection project(const distribution& _distribution, const std::vector<float>& _angles, const std::vector<distribution>& _projected_points)
+	projection project(const distribution& _distribution, const std::vector<float>& _angles, const std::vector<distribution>& _projected_points) const
 	{
 		projection results(_distribution.depth(), _distribution.height(), _projected_points.size());
 

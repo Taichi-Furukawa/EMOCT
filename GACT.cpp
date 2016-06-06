@@ -35,7 +35,7 @@ Individual::Individual()
 void Individual::initialize(size_t x, size_t y) {
     random_device rd;
     mt19937_64 engine(rd());
-    uniform_real_distribution<float> dist(0,100);
+    uniform_real_distribution<float> dist(0,3);
     gene.resize(x, y,1);
     for(auto&& g : gene.quantities()){
         g = dist(engine);
@@ -100,7 +100,7 @@ distribution GACT::Evolution(){
         best_individual();
         elite = bestIndividual;
         cout<<"Max : "<<bestFittness<<endl<<endl;
-        bestIndividual.gene.save("3d_density_gen" + generation);
+        bestIndividual.gene.save("result/3d_density_gen" + to_string(generation));
         //cout<<"best individual"<<endl;
         //cout<<bestIndividual.gene<<endl;
         cout<<endl;
@@ -116,6 +116,7 @@ void GACT::best_individual(){
     double f = -DBL_MAX;
     for(auto&& ind:population){
         if (ind.fitness>f){
+            f = ind.fitness
             bestIndividual = ind;
             bestFittness = ind.fitness;
         }
@@ -202,7 +203,7 @@ void GACT::mutate(){
 
     double probability;
     mt19937_64 engine(1);
-    uniform_real_distribution<float> distribution(0,100);
+    uniform_real_distribution<float> distribution(0,3);
 
     for(unsigned i = 0; i < population.size(); i++)
     {
@@ -235,8 +236,9 @@ void GACT::fittness(){
 
         for(unsigned  int i=0;i<reproject.counts();i++){
             for(unsigned int x=0;x<reproject.height();x++) {
-
+                if(reproject.identity(0,x,i)==ilab::blank_type::quantity){
                 f += abs(p_data.quantity(0, x, i) - reproject.quantity(0, x, i));
+                }
             }
         }
 

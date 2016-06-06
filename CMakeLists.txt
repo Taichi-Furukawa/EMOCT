@@ -9,7 +9,6 @@ set(SOURCE_FILES
         gact_main.cpp
         CUDAMath.h
         MersenneTwister.h
-        Xorshift.h
         GACT.cpp
         mtrand.cpp
         ilab.h

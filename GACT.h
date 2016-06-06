@@ -21,7 +21,6 @@
 #include <vector>
 #include <random>
 #include "CUDAMath.h"
-#include "Xorshift.h"
 #include "ilab.h"
 
 using namespace std;

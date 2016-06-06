@@ -1,103 +1,89 @@
+//=================================================================================//
+//                                                                                 //
+//  ilab library                                                                   //
+//                                                                                 //
+//  Copyright (C) 2011-2016 Terry                                                  //
+//                                                                                 //
+//  This file is a portion of the ilab library. It is distributed under the MIT    //
+//  License, available in the root of this distribution and at the following URL.  //
+//  http://opensource.org/licenses/mit-license.php                                 //
+//                                                                                 //
+//=================================================================================//
+
 #pragma once
 
-#include <string>
-#include <vector>
-#include <arch.h>
-#include "ProjectionData.h"
-#include "DensityDistribution.h"
+#include "projection.h"
+#include "projector.h"
+#include "distribution.h"
 
-/// <summary>投影データからデータを再構成します。</summary>
-class art
+namespace ilab
+{
+
+/// <summary>投影データから分布データを再構成します。</summary>
+class art final
 {
 public:
-	art()
-		: m_dimension(arch::vector3<size_t>::zero()), m_cameras(0), m_steps(30)
-	{
-	}
-
+	art() = default;
 	~art() = default;
 
 	/// <summary>投影データからデータをZ軸周りで再構成します。</summary>
-	/// <returns>成功した場合はtrue, 失敗した場合はfalse</returns>
-	bool reconstruct(const arch::table<float>& _projection, arch::grid<float>& _reconstruction)
+	distribution reconstruct(const projection& _projection, const projector& _projector, size_t _steps)
 	{
-		bool result = false;
-		m_DimensionX = projections.height;
-		m_DimensionY = projections.height;
-		m_DimensionZ = projections.width;
-		m_DimensionI = projections.count;
+		distribution result(_projection.height(), _projection.height(), _projection.width(), 0.0f);
 
-		// 必要なバッファを確保
-		reconstructions.resize(m_DimensionX, m_DimensionY, m_DimensionZ);
-		m_SmoothingReconstructions.resize(m_DimensionX * m_DimensionY);
-		m_Reprojections.resize(m_DimensionY * m_DimensionI);
+		// Calculate the projected points;
+		const auto projected_points = _projector.calculate_projected_points(result, _projection.angles());
 
-		// 再投影位置を算出
-		m_FittingPositions = CreateFittingPositions(projections);
+		projection correction(_projection.width(), _projection.height(), _projection.counts());
 
-		// 再構成開始時間を取得
-		time_t beginTime;
-		time_t endTime;
-		time(&beginTime);
-
-		// 再構成開始
-		for (unsigned int z = 0; z < m_DimensionZ; z++)
+		for (size_t step = 0; step < _steps; step++)
 		{
-			for (unsigned int step = 0; step < m_Steps; step++)
+			for (size_t z = 0; z < result.depth(); z++)
 			{
-				reprojectionPass(projections, reconstructions, z);		// 再投影
-				feedbackPass(projections, z);							// フィルタリング
-				backProjectionPass(projections, reconstructions, z);	// 逆投影
-				gaussian(reconstructions, z);							// ガウスフィルタで平滑化
+				// Reproject.
+				projection reprojection = _projector.project(result, _projection.angles(), projected_points);
+				
+				// Correct.
+				for (size_t i = 0; i < reprojection.quantities().size(); i++)
+				{
+					if (reprojection.identities()[i] == blank_type::quantity)
+					{
+						correction.quantities()[i] = (_projection.quantities()[i] - reprojection.quantities()[i]) / static_cast<float>(correction.height());
+					}
+				}
+
+				// Backproject.
+				result.fill(0.0f);
+				for (size_t y = 0; y < result.height(); y++)
+				{
+					for (size_t x = 0; x < result.width(); x++)
+					{
+						float total = 0.0f;
+						for (size_t i = 0; i < _projection.counts(); i++)
+						{
+							if (projected_points[i].identity(x, y, z) != blank_type::quantity)
+							{
+								continue;
+							}
+
+							const float real_point = projected_points[i].quantity(x, y, z);
+							const size_t near_point = static_cast<size_t>(real_point);
+							const float distance = 1.0f - (real_point - static_cast<float>(near_point));
+
+							if (_projection.identity(z, near_point, i) == blank_type::quantity)
+							{
+								result.quantity(x, y, z) += correction.quantity(z, near_point + 0, i) * _projector.get_weight()(distance);
+								result.quantity(x, y, z) += correction.quantity(z, near_point + 1, i) * _projector.get_weight()(1.0f - distance);
+								total++;
+							}
+						}
+						result.quantity(x, y, z) /= total;
+					}
+				}
 			}
-			time(&endTime);
-			m_ElapsedTime = difftime(endTime, beginTime);
-
-			std::cout << "z=" << z << " exit (elapsed time " << m_ElapsedTime << "[sec])" << std::endl;
 		}
-		return true;
+		return std::move(result);
 	}
-
-	void set_steps(size_t _steps)
-	{
-		m_steps = _steps;
-	}
-
-	size_t get_steps() const
-	{
-		return m_steps;
-	}
-
-private:
-	bool is_excluded(const ProjectionData& projections, unsigned int x, unsigned int y, unsigned int z) const
-	{
-		int total = 0;
-		for (unsigned int i = 0; i < projections.count; i++)
-		{
-			float position = getFittingPosition(x, y, i);
-			int fittingIndex = static_cast<int>(position);
-
-			total += (fittingIndex < 0) ? 1 : projections.id(z, fittingIndex, i);
-		}
-
-		return static_cast<unsigned int>(total) >= projections.count;
-	}
-
-	float getFittingPosition(unsigned int x, unsigned int y, unsigned int index) const;
-	void setReprojection(unsigned int y, unsigned int index, float reprojection);
-	void addReprojection(unsigned int y, unsigned int index, float reprojection);
-	float getReprojection(unsigned int y, unsigned int index) const;
-
-	void reprojectionPass(const ProjectionData& projections, const DensityDistribution& reconstructions, unsigned int z);
-	void feedbackPass(const ProjectionData& projections, unsigned int z);
-	void backProjectionPass(const ProjectionData& projections, DensityDistribution& reconstructions, unsigned int z);
-	void gaussian(DensityDistribution& reconstructions, unsigned int z);
-
-	arch::vector3<size_t> m_dimension;
-	size_t m_cameras;
-	size_t m_steps;
-
-	arch::grid<float> m_fitting_positions;
-	arch::table<float> m_Reprojections;
-	std::vector<float> m_SmoothingReconstructions;
 };
+
+}
