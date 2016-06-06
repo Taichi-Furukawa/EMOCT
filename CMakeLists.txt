@@ -6,16 +6,16 @@ set(EXEC_NAME EMOCT)
 SET(QTCP_PROJECT_DIR .)
 
 set(SOURCE_FILES
-        ART_Main.cpp
-        ProjectionData.cpp
-        ART.cpp
-        CTUtility.cpp
-        DensityDistribution.cpp
+        gact_main.cpp
         CUDAMath.h
         MersenneTwister.h
         Xorshift.h
-        GACT.cpp GACT.h
-        libs/table.h
-        libs/matrix.h
+        GACT.cpp
+        mtrand.cpp
+        ilab.h
+        ilab/art.h
+        ilab/distribution.h
+        ilab/projection.h
+        ilab/projector.h
          )
 add_executable(EMOCT ${SOURCE_FILES})

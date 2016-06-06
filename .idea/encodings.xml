@@ -11,5 +11,6 @@
     <file url="file://$PROJECT_DIR$/ga2k.cpp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/matrix.h" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/libs/table.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/projection.h" charset="UTF-8" />
   </component>
 </project>

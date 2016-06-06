@@ -13,11 +13,13 @@ TdrLevel: REG_DWORD
 */
 
 #include <iostream>
+#include "ilab.h"
 #include <sstream>
 #include <string>
-#include "ART.h"
+#include "GACT.h"
 
 using namespace Math;
+using namespace ilab;
 
 int main(int argc, char* argv[])
 {
@@ -35,34 +37,23 @@ int main(int argc, char* argv[])
 	std::cout << "Projection Data : " << data.c_str() << std::endl;
 	std::cout << "Loading Projection Data" << std::endl;
 
-	ProjectionData projection(data);
+	ilab::projection projection(data);
 	if(projection.empty())
 	{
 		std::cout << "Can't load Projection Data" << std::endl;
 		return 1;
 	}
-	std::cout << "Width : " << projection.width << std::endl;
-	std::cout << "Height : " << projection.height << std::endl;
-	std::cout << "Count : " << projection.count << std::endl;
+	std::cout << "Width : " << projection.width() << std::endl;
+	std::cout << "Height : " << projection.height() << std::endl;
+	std::cout << "Count : " << projection.counts() << std::endl;
 
-	DensityDistribution reconstruction;
+	distribution reconstruction;
 	unsigned int steps;
 
-	steps = std::stoi(argv[2]);
-
 	std::cout << "Steps : " << steps << std::endl;
+	GACT gact(projection);
+	gact.Evolution();
 
-	ART art;
-	art.setSteps(steps);
-
-	std::cout << "Running ART" << std::endl;
-	if(!art.reconstruct(projection, reconstruction))
-	{
-		std::cout << "reconstruct failed" << std::endl;
-		return 1;
-	}
-
-	std::cout << "Time : " << art.elapsedTime() << "[sec]" << std::endl;
 
 	const std::string densityFileName("3D-DENSITY");
 	if(!reconstruction.save(densityFileName))
