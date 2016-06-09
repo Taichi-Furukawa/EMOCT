@@ -174,22 +174,11 @@ void GACT::crrossover() {
             col_b = rand_col(eng);
 
             if (row_a > row_b){
-                int temp = row_b;
-                row_b = row_a;
-                row_a = temp;
+                swap(row_a,row_b);
             }
             if (col_a > col_b){
-                int temp = col_b;
-                col_b = col_a;
-                col_a = temp;
+                swap(col_a,col_b);
             }
-
-
-
-            //Create sub-matrix following numbers
-            //table<float> sub_mat_0(static_cast<size_t>(row_s),static_cast<size_t>(col_s));
-            //table<float> sub_mat_1(static_cast<size_t>(row_s),static_cast<size_t>(col_s));
-
             float v_0,v_1;
             for(int j=row_a;j<row_b;j++){
                 for(int k=col_a;k<col_b;k++){
