@@ -116,7 +116,7 @@ void GACT::best_individual(){
     double f = -DBL_MAX;
     for(auto&& ind:population){
         if (ind.fitness>f){
-            f = ind.fitness
+            f = ind.fitness;
             bestIndividual = ind;
             bestFittness = ind.fitness;
         }
@@ -143,7 +143,9 @@ void GACT::selection() {
         }
         sort(tournament.begin(),tournament.end());
         newGeneration[i] = tournament[0];
+
     }
+
     for(unsigned i = 0; i < population.size(); i++)
         population[i] = newGeneration[i];
 }
@@ -165,25 +167,34 @@ void GACT::crrossover() {
             //Create four random number in a range of Individual size
             uniform_int_distribution<> rand_row(0, static_cast<int>(child[0].gene.width())-1); // define the range 0_tablerows
             uniform_int_distribution<> rand_col(0, static_cast<int>(child[0].gene.height())-1); // define the range 0_tablerows
-            int row,col,row_s,col_s;
-            row = rand_row(eng);
-            col = rand_col(eng);
-            uniform_int_distribution<> rand_rowsize(1, static_cast<int>(child[0].gene.width())-row); // define the range 0_tablerows
-            uniform_int_distribution<> rand_colsize(1, static_cast<int>(child[0].gene.height())-col); // define the range 0_tablerows
-            row_s = rand_rowsize(eng);
-            col_s = rand_colsize(eng);
+            int row_a,col_a,row_b,col_b;
+            row_a = rand_row(eng);
+            col_a = rand_col(eng);
+            row_b = rand_row(eng);
+            col_b = rand_col(eng);
+
+            if (row_a > row_b){
+                int temp = row_b;
+                row_b = row_a;
+                row_a = temp;
+            }
+            if (col_a > col_b){
+                int temp = col_b;
+                col_b = col_a;
+                col_a = temp;
+            }
+
+
 
             //Create sub-matrix following numbers
             //table<float> sub_mat_0(static_cast<size_t>(row_s),static_cast<size_t>(col_s));
             //table<float> sub_mat_1(static_cast<size_t>(row_s),static_cast<size_t>(col_s));
 
             float v_0,v_1;
-            for(int j=row;j<row+row_s;j++){
-                for(int k=col;k<col+col_s;k++){
+            for(int j=row_a;j<row_b;j++){
+                for(int k=col_a;k<col_b;k++){
                     v_0 = child[0].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0);
                     v_1 = child[1].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0);
-                    //sub_mat_0.at(static_cast<size_t>(0+j),static_cast<size_t>(0+k)) = child[0].gene.at(static_cast<size_t>(j),static_cast<size_t>(k));
-                    //sub_mat_1.at(static_cast<size_t>(0+j),static_cast<size_t>(0+k)) = child[1].gene.at(static_cast<size_t>(j),static_cast<size_t>(k));
                     //and swap
                     child[0].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0) = v_1;
                     child[1].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0) = v_0;
@@ -204,16 +215,38 @@ void GACT::mutate(){
     double probability;
     mt19937_64 engine(1);
     uniform_real_distribution<float> distribution(0,3);
-
+    random_device rd; // obtain a random number from hardware
+    mt19937 eng(rd()); // seed the generator
+    uniform_int_distribution<> rand_row(0, static_cast<int>(population[0].gene.width())-1); // define the range 0_tablerows
+    uniform_int_distribution<> rand_col(0, static_cast<int>(population[0].gene.height())-1); // define the range 0_tablerows
     for(unsigned i = 0; i < population.size(); i++)
     {
-        for(unsigned j = 0; j < population[i].gene.width(); j++) {
-            for (unsigned k = 0; k < population[i].gene.height(); k++){
-                probability = genrand();
-                if (probability < mutation_pb) {
-                    population[i].gene.quantity(j, k, 0) = distribution(engine);
-                    //cout<<"mutate"<<endl;
-                    //cout<<population[i].gene<<endl;
+        probability = genrand();
+        if (probability < mutation_pb) {
+            int x = rand_row(eng);
+            int y = rand_col(eng);
+            float rand_value = distribution(engine);
+
+            int start_x = x-2;
+            int start_y = y-2;
+            if(start_x<0)
+                start_x = 0;
+            if(start_y<0)
+                start_y = 0;
+
+            int end_x = x+2;
+            int end_y = y+2;
+            if(end_x>population[i].gene.width()-1)
+                end_x = static_cast<int>(population[i].gene.width())-1;
+            if(end_y>population[i].gene.height()-1)
+                end_y = static_cast<int>(population[i].gene.height())-1;
+
+            for(int j = start_x; j < end_x; j++) {
+                for (int k = start_y; k < end_y; k++){
+                        population[i].gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) = rand_value;
+
+                        //cout<<"mutate"<<endl;
+                        //cout<<population[i].gene<<endl;
                 }
             }
         }
