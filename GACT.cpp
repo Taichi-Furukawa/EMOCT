@@ -275,19 +275,27 @@ void GACT::mutate(){
             double theta = rand_theta(eng);
             int x = static_cast<int>(r*cos(theta)+r);
             int y = static_cast<int>(r*sin(theta)+r);
+            int mutation_range = 0;
+            if(population[i].fitness>-1000){
+                mutation_range = 0;
+            }else if(population[i].fitness>-10000){
+                mutation_range = 2;
+            }else{
+                mutation_range = 10;
+            }
 
 
             float rand_value = distribution(engine);
 
-            int start_x = x-2;
-            int start_y = y-2;
+            int start_x = x-mutation_range;
+            int start_y = y-mutation_range;
             if(start_x<0)
                 start_x = 0;
             if(start_y<0)
                 start_y = 0;
 
-            int end_x = x+2;
-            int end_y = y+2;
+            int end_x = x+mutation_range;
+            int end_y = y+mutation_range;
             if(end_x>population[i].gene.width()-1)
                 end_x = static_cast<int>(population[i].gene.width())-1;
             if(end_y>population[i].gene.height()-1)
