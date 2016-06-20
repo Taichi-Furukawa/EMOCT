@@ -188,6 +188,7 @@ void GACT::crrossover() {
     median = static_cast<int>(population.size()) / 2;
     random_device rd; // obtain a random number from hardware
     mt19937 eng(rd()); // seed the generator
+    uniform_int_distribution<> all_rand;
 
     for(int i = 0; i < median; i++) {
         if (genrand() < crossover_pb) {
@@ -196,17 +197,17 @@ void GACT::crrossover() {
 
             //Create a child Individuals
             //Create four random number in a range of Individual size
-            double r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
-            double theta = genrand() * 2 * 3.141592f;
+            uniform_real_distribution<> rand_r(0,population[i].gene.width() / 2.0f);
+            uniform_real_distribution<> rand_theta(0,2 * 3.141592f);
+            double r = rand_r(eng);
+            double theta = rand_theta(eng);
+            int x1 = static_cast<int>(r*cos(theta)+r);
+            int y1 = static_cast<int>(r*sin(theta)+r);
 
-            int x1 = static_cast<int>(r*cos(static_cast<int>(theta))+r);
-            int y1 = static_cast<int>(r*sin(static_cast<int>(theta))+r);
-
-            r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
-            theta = genrand() * 2 * 3.141592f;
-
-            int x2 = static_cast<int>(r*cos(static_cast<int>(theta))+r);
-            int y2 = static_cast<int>(r*sin(static_cast<int>(theta))+r);
+            r = rand_r(eng);
+            theta = rand_theta(eng);
+            int x2 = static_cast<int>(r*cos(theta)+r);
+            int y2 = static_cast<int>(r*sin(theta)+r);
 
             int row_a,col_a,row_b,col_b;
             /* 正方形ないで一様ランダム
@@ -217,10 +218,10 @@ void GACT::crrossover() {
             row_b = rand_row(eng);
             col_b = rand_col(eng);
              */
-            row_a = static_cast<int>(x1);
-            col_a = static_cast<int>(y1);
-            row_b = static_cast<int>(x2);
-            col_b = static_cast<int>(y2);
+            row_a = x1;
+            col_a = y1;
+            row_b = x2;
+            col_b = y2;
 
             if (row_a > row_b){
                 swap(row_a,row_b);
@@ -260,6 +261,8 @@ void GACT::mutate(){
 
     //uniform_int_distribution<> rand_row(0, static_cast<int>(population[0].gene.width())-1); // define the range 0_tablerows
     //uniform_int_distribution<> rand_col(0, static_cast<int>(population[0].gene.height())-1); // define the range 0_tablerows
+    uniform_real_distribution<> rand_r(0,population[0].gene.width() / 2.0f);
+    uniform_real_distribution<> rand_theta(0,2 * 3.141592f);
 
 
     for(unsigned i = 0; i < population.size(); i++)
@@ -268,10 +271,11 @@ void GACT::mutate(){
         if (probability < mutation_pb) {
             //int x = rand_row(eng);
             //int y = rand_col(eng);
-            double r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
-            double theta = genrand() * 2 * 3.141592f;
-            int x = static_cast<int>(r*cos(static_cast<int>(theta))+r);
-            int y = static_cast<int>(r*sin(static_cast<int>(theta))+r);
+            double r = rand_r(eng);
+            double theta = rand_theta(eng);
+            int x = static_cast<int>(r*cos(theta)+r);
+            int y = static_cast<int>(r*sin(theta)+r);
+
 
             float rand_value = distribution(engine);
 
