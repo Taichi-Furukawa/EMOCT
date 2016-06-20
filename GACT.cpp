@@ -201,8 +201,6 @@ void GACT::crrossover() {
 
             int x1 = static_cast<int>(r*cos(static_cast<int>(theta))+r);
             int y1 = static_cast<int>(r*sin(static_cast<int>(theta))+r);
-            cout<<x1<<" "<<y1<<endl;
-
 
             r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
             theta = genrand() * 2 * 3.141592f;
@@ -233,11 +231,13 @@ void GACT::crrossover() {
             float v_0,v_1;
             for(int j=row_a;j<row_b;j++){
                 for(int k=col_a;k<col_b;k++){
-                    v_0 = child[0].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0);
-                    v_1 = child[1].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0);
-                    //and swap
-                    child[0].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0) = v_1;
-                    child[1].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0) = v_0;
+                    if(population[i].gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::quantity) {
+                        v_0 = child[0].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0);
+                        v_1 = child[1].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0);
+                        //and swap
+                        child[0].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0) = v_1;
+                        child[1].gene.quantity(static_cast<size_t>(j),static_cast<size_t>(k),0) = v_0;
+                    }
                 }
             }
             //cout<<"swaped"<<endl;
@@ -291,7 +291,9 @@ void GACT::mutate(){
 
             for(int j = start_x; j < end_x; j++) {
                 for (int k = start_y; k < end_y; k++){
+                    if(population[i].gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::quantity) {
                         population[i].gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) = rand_value;
+                    }
 
                         //cout<<"mutate"<<endl;
                         //cout<<population[i].gene<<endl;
