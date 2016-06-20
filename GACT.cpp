@@ -40,6 +40,26 @@ void Individual::initialize(size_t x, size_t y) {
     for(auto&& g : gene.quantities()){
         g = dist(engine);
     }
+    const auto intersect = [](float _x, float _y, float _r)
+    {
+        return _x * _x + _y * _y <= _r * _r;
+    };
+    const float center_x = static_cast<float>(gene.width()) / 2.0f;
+    const float center_y = static_cast<float>(gene.height()) / 2.0f;
+        for (size_t y = 0; y < gene.height(); y++)
+        {
+            for (size_t x = 0; x < gene.width(); x++)
+            {
+                if (intersect(static_cast<float>(x) - center_x, static_cast<float>(y) - center_y, center_y))
+                {
+                    gene.identity(x, y, 0) = ilab::blank_type::quantity;
+                }
+                else
+                {
+                    gene.identity(x, y, 0) = ilab::blank_type::outside;
+                }
+            }
+        }
 
     fitness = -DBL_MAX;
 }
@@ -66,11 +86,21 @@ GACT::GACT(ilab::projection& projections){
     mutation_pb = 0.5;
     tournamentSize = 4;
     bestFittness = 0;
+
+    const auto weight_function = [](float _length)
+    {
+        //return 1.0 - _length;
+        return 1.0f - 3.0f * _length * _length + 2.0f * _length * _length * _length;
+    };
+    projector.set_weight(weight_function);
+
 }
+
 
 distribution GACT::Evolution(){
     cout<<"Start evaluation"<<endl;
     init_population();
+    projected_points =  projector.calculate_projected_points(population[0].gene,p_data.angles());
     cout<<"=====Evaluated "<< population.size() << " individuals====="<<endl;
     generation=1;
 
@@ -131,6 +161,7 @@ void GACT::init_population() {
         i = Individual();
         i.initialize(m_DimensionX,m_DimensionY);
     }
+
 }
 
 void GACT::selection() {
@@ -162,16 +193,36 @@ void GACT::crrossover() {
         if (genrand() < crossover_pb) {
             child[0] = population[i];
             child[1] = population[i + median];
-            //cout<<child[0].gene<<endl<<" and "<<endl<<child[1].gene<<endl;
+
             //Create a child Individuals
             //Create four random number in a range of Individual size
+            double r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
+            double theta = genrand() * 2 * 3.141592f;
+
+            int x1 = static_cast<int>(r*cos(static_cast<int>(theta))+r);
+            int y1 = static_cast<int>(r*sin(static_cast<int>(theta))+r);
+            cout<<x1<<" "<<y1<<endl;
+
+
+            r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
+            theta = genrand() * 2 * 3.141592f;
+
+            int x2 = static_cast<int>(r*cos(static_cast<int>(theta))+r);
+            int y2 = static_cast<int>(r*sin(static_cast<int>(theta))+r);
+
+            int row_a,col_a,row_b,col_b;
+            /* 正方形ないで一様ランダム
             uniform_int_distribution<> rand_row(0, static_cast<int>(child[0].gene.width())-1); // define the range 0_tablerows
             uniform_int_distribution<> rand_col(0, static_cast<int>(child[0].gene.height())-1); // define the range 0_tablerows
-            int row_a,col_a,row_b,col_b;
             row_a = rand_row(eng);
             col_a = rand_col(eng);
             row_b = rand_row(eng);
             col_b = rand_col(eng);
+             */
+            row_a = static_cast<int>(x1);
+            col_a = static_cast<int>(y1);
+            row_b = static_cast<int>(x2);
+            col_b = static_cast<int>(y2);
 
             if (row_a > row_b){
                 swap(row_a,row_b);
@@ -206,14 +257,22 @@ void GACT::mutate(){
     uniform_real_distribution<float> distribution(0,3);
     random_device rd; // obtain a random number from hardware
     mt19937 eng(rd()); // seed the generator
-    uniform_int_distribution<> rand_row(0, static_cast<int>(population[0].gene.width())-1); // define the range 0_tablerows
-    uniform_int_distribution<> rand_col(0, static_cast<int>(population[0].gene.height())-1); // define the range 0_tablerows
+
+    //uniform_int_distribution<> rand_row(0, static_cast<int>(population[0].gene.width())-1); // define the range 0_tablerows
+    //uniform_int_distribution<> rand_col(0, static_cast<int>(population[0].gene.height())-1); // define the range 0_tablerows
+
+
     for(unsigned i = 0; i < population.size(); i++)
     {
         probability = genrand();
         if (probability < mutation_pb) {
-            int x = rand_row(eng);
-            int y = rand_col(eng);
+            //int x = rand_row(eng);
+            //int y = rand_col(eng);
+            double r = sqrt(genrand()) * (population[i].gene.width() / 2.0f);
+            double theta = genrand() * 2 * 3.141592f;
+            int x = static_cast<int>(r*cos(static_cast<int>(theta))+r);
+            int y = static_cast<int>(r*sin(static_cast<int>(theta))+r);
+
             float rand_value = distribution(engine);
 
             int start_x = x-2;
@@ -248,13 +307,7 @@ void GACT::fittness(){
         double f=0.0;
         distribution b = ind.gene;
 
-        const auto weight_function = [](float _length)
-        {
-            //return 1.0 - _length;
-            return 1.0f - 3.0f * _length * _length + 2.0f * _length * _length * _length;
-        };
-        projector projector(weight_function);
-        ilab::projection reproject = projector.project(b,p_data.angles());
+        ilab::projection reproject = projector.project(b,p_data.angles(),projected_points);
 
         for(unsigned  int i=0;i<reproject.counts();i++){
             for(unsigned int x=0;x<reproject.height();x++) {

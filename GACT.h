@@ -63,6 +63,9 @@ private:
     unsigned int		m_DimensionZ;
     unsigned int		m_DimensionI;
     projection p_data;
+    ilab::projector projector;
+    vector<distribution> projected_points;
+
 
     int maxGeneration;
     int generation;
