@@ -130,7 +130,14 @@ distribution GACT::Evolution(){
         best_individual();
         elite = bestIndividual;
         cout<<"Max : "<<bestFittness<<endl<<endl;
-        bestIndividual.gene.save("result/3d_density_gen" + to_string(generation));
+        distribution save_density;
+        save_density.resize(m_DimensionX,m_DimensionY,m_DimensionZ);
+        for (size_t y = 0; y < bestIndividual.gene.height(); y++) {
+            for (size_t x = 0; x < bestIndividual.gene.width(); x++) {
+                save_density.quantity(x,y,0) = bestIndividual.gene.quantity(x, y, 0);
+            }
+        }
+        save_density.save("result/3d_density_gen" + to_string(generation));
         //cout<<"best individual"<<endl;
         //cout<<bestIndividual.gene<<endl;
         cout<<endl;
