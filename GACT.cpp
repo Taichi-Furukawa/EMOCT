@@ -80,8 +80,8 @@ GACT::GACT(ilab::projection& projections){
     m_DimensionZ = static_cast<int>(projections.width());
     m_DimensionI = static_cast<int>(projections.counts());
 
-    populationSize = 250;
-    maxGeneration = 1000;
+    populationSize = 500;
+    maxGeneration = 1500;
     crossover_pb = 1.0;
     mutation_pb = 0.5;
     tournamentSize = 4;
@@ -103,7 +103,9 @@ distribution GACT::Evolution(){
     projected_points =  projector.calculate_projected_points(population[0].gene,p_data.angles());
     cout<<"=====Evaluated "<< population.size() << " individuals====="<<endl;
     generation=1;
-
+    ofstream logging;
+    logging.open("evolution.csv",std::ios::out);
+    logging<<"generation,fittness"<<endl;
     for(generation=1; generation <= maxGeneration; generation++){
         cout<<"===Generation:" << generation << "==="<<endl;
         //selection
@@ -130,6 +132,14 @@ distribution GACT::Evolution(){
         best_individual();
         elite = bestIndividual;
         cout<<"Max : "<<bestFittness<<endl<<endl;
+        logging<<generation<<","<<bestFittness<<endl;
+        for(int j = 0; j < bestIndividual.gene.width(); j++) {
+            for (int k = 0; k < bestIndividual.gene.height(); k++){
+                if(bestIndividual.gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::quantity) {
+                    bestIndividual.gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) +=1 ;
+                }
+            }
+        }
         bestIndividual.gene.save("result/3d_density_gen" + to_string(generation));
         //cout<<"best individual"<<endl;
         //cout<<bestIndividual.gene<<endl;
@@ -276,10 +286,10 @@ void GACT::mutate(){
             int x = static_cast<int>(r*cos(theta)+r);
             int y = static_cast<int>(r*sin(theta)+r);
             int mutation_range = 0;
-            if(population[i].fitness>-1000){
-                mutation_range = 0;
-            }else if(population[i].fitness>-10000){
+            if(population[i].fitness>-800){
                 mutation_range = 2;
+            }else if(population[i].fitness>-1000){
+                mutation_range = 6;
             }else{
                 mutation_range = 10;
             }

@@ -105,7 +105,7 @@ int seed_by_time()
 #else // UNIX
 	struct timezone tz;
 	struct timeval tv;
-	gettimeofday(&tv, &tz);
+//	gettimeofday(&tv, &tz);
 	value = (int)tv.tv_usec;
 #endif
 
