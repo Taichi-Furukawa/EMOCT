@@ -57,6 +57,8 @@ private:
     void mutate();
     void fittness();
     void best_individual();
+    void save_individual(Individual,int);
+    void division_each_angles(Individual);
 
     unsigned int		m_DimensionX;
     unsigned int		m_DimensionY;

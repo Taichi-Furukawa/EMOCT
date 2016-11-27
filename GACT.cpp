@@ -81,7 +81,7 @@ GACT::GACT(ilab::projection& projections){
     m_DimensionI = static_cast<int>(projections.counts());
 
     populationSize = 500;
-    maxGeneration = 1500;
+    maxGeneration = 1;
     crossover_pb = 1.0;
     mutation_pb = 0.5;
     tournamentSize = 4;
@@ -134,31 +134,13 @@ distribution GACT::Evolution(){
         cout<<"Max : "<<bestFittness<<endl<<endl;
 
         logging<<generation<<","<<bestFittness<<endl;
-        for(int j = 0; j < bestIndividual.gene.width(); j++) {
-            for (int k = 0; k < bestIndividual.gene.height(); k++){
-                if(bestIndividual.gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::quantity) {
-                    bestIndividual.gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) +=1 ;
-                }
-            }
-        }
-        distribution save_density;
-        save_density.resize(m_DimensionX,m_DimensionY,m_DimensionZ);
-        for (size_t y = 0; y < bestIndividual.gene.height(); y++) {
-            for (size_t x = 0; x < bestIndividual.gene.width(); x++) {
-                save_density.quantity(x,y,0) = bestIndividual.gene.quantity(x, y, 0);
-            }
-        }
-        save_density.save("result/3d_density_gen" + to_string(generation));
-        //cout<<"best individual"<<endl;
-        //cout<<bestIndividual.gene<<endl;
+        save_individual(bestIndividual,generation);
         cout<<endl;
     }
-
+    division_each_angles(bestIndividual);
     return bestIndividual.gene;
 
 }
-
-//generate first population
 
 void GACT::best_individual(){
     double f = -DBL_MAX;
@@ -168,6 +150,52 @@ void GACT::best_individual(){
             bestIndividual = ind;
             bestFittness = ind.fitness;
         }
+    }
+}
+
+void GACT::save_individual(Individual ind,int generation){
+    for(int j = 0; j < ind.gene.width(); j++) {
+        for (int k = 0; k < ind.gene.height(); k++){
+            if(ind.gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::quantity) {
+                ind.gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) +=1 ;
+            }
+        }
+    }
+    distribution save_density;
+    save_density.resize(m_DimensionX,m_DimensionY,m_DimensionZ);
+    for (size_t y = 0; y < ind.gene.height(); y++) {
+        for (size_t x = 0; x < ind.gene.width(); x++) {
+            save_density.quantity(x,y,0) = ind.gene.quantity(x, y, 0);
+        }
+    }
+    save_density.save("result/3d_density_gen" + to_string(generation));
+}
+
+void GACT::division_each_angles(Individual ind){
+    double f=0.0;
+    distribution b = ind.gene;
+    ilab::projection reproject = projector.project(b,p_data.angles(),projected_points);
+
+    vector<vector<double>> data(reproject.counts(),vector<double>(2));
+    for(unsigned  int i=0;i<p_data.angles().size();i++) {
+        data[i][0]=p_data.angle(i);
+    }
+
+    for(unsigned  int i=0;i<reproject.counts();i++){
+        for(unsigned int x=0;x<reproject.height();x++) {
+            if(reproject.identity(0,x,i)==ilab::blank_type::quantity){
+                f+=abs(p_data.quantity(0, x, i) - reproject.quantity(0, x, i));
+            }
+        }
+        data[i][1]=f;
+        f=0.0;
+    }
+    FILE *fp = fopen( "div_eachangle.csv", "w" );
+    if( fp != NULL ) {
+        for(int i = 0; i < data.size(); i++ ) {
+            fprintf( fp, "%f,%f\n", data[i][0], data[i][1]);
+        }
+        fclose( fp );
     }
 }
 
