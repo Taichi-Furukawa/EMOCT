@@ -40,6 +40,9 @@ public:
     //method (constructor)
     Individual();
     void initialize(size_t row, size_t colums);
+    void initialize(size_t row, size_t colums, distribution initial_dist);
+    //method
+    float gaussian_noise( float mu, float sigma );
 
 
 };
@@ -47,11 +50,12 @@ public:
 
 class GACT {
 public:
-    GACT(ilab::projection &projections);
+    GACT(ilab::projection &projections, string dist_data_path);
     distribution Evolution();
 
 private:
     void init_population();
+    void init_population_with_initial_dist(distribution);
     void selection();
     void crrossover();
     void mutate();
@@ -77,6 +81,7 @@ private:
     double mutation_pb;
 
     double bestFittness;
+    string initial_image_path;
     Individual bestIndividual;
 
     vector<Individual> population;

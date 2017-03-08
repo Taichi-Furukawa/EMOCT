@@ -51,7 +51,15 @@ int main(int argc, char* argv[])
 	unsigned int steps;
 
 	std::cout << "Steps : " << steps << std::endl;
-	GACT gact(projection);
+
+	std::string dist_data;
+	if (argc == 3)
+	{
+		std::cout << "GOT Arguments[2] : Initial Reconstruct Image file path(distribution file)" << std::endl;
+		dist_data = argv[2];
+	}
+
+	GACT gact(projection,dist_data);
 	gact.Evolution();
 
 

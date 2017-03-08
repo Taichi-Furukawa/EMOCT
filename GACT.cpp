@@ -64,15 +64,54 @@ void Individual::initialize(size_t x, size_t y) {
     fitness = -DBL_MAX;
 }
 
+void Individual::initialize(size_t x, size_t y,distribution initial_dist) {
+    gene.resize(x, y,1);
+    for(auto&& g : gene.quantities()){
+        g = 1.0;
+    }
+    const auto intersect = [](float _x, float _y, float _r)
+    {
+        return _x * _x + _y * _y <= _r * _r;
+    };
+    const float center_x = static_cast<float>(gene.width()) / 2.0f;
+    const float center_y = static_cast<float>(gene.height()) / 2.0f;
+    for (size_t j = 0; j < gene.height(); j++)
+    {
+        for (size_t i = 0; i < gene.width(); i++)
+        {
+            if (intersect(static_cast<float>(i) - center_x, static_cast<float>(j) - center_y, center_y))
+            {
+                gene.identity(i, j, 0) = ilab::blank_type::quantity;
+                gene.quantity(i, j, 0) = abs(gaussian_noise(initial_dist.quantity(i, j, 0),0.1));
+            }
+            else
+            {
+                gene.identity(i, j, 0) = ilab::blank_type::outside;
+            }
+        }
+    }
+
+    fitness = -DBL_MAX;
+}
+
 bool Individual::operator<(const Individual& individual) const
 {
     return fitness > individual.fitness;
 }
 
+float Individual::gaussian_noise(float mu, float sigma) {
+    random_device rd;
+    mt19937_64 engine(rd());
+    uniform_real_distribution<float> dist(0,1);
+    float z = (float) (mu + sigma * sqrt(-2.0 * log(dist(engine))) * sin(2.0 * M_PI * dist(engine)));
+    return exp(z);
+}
+
+
 //=============================================================================
 //class GACT
 //=============================================================================
-GACT::GACT(ilab::projection& projections){
+GACT::GACT(ilab::projection& projections, string dist_data_path){
 
     p_data = projections;
     m_DimensionX = static_cast<int>(projections.height());
@@ -80,12 +119,13 @@ GACT::GACT(ilab::projection& projections){
     m_DimensionZ = static_cast<int>(projections.width());
     m_DimensionI = static_cast<int>(projections.counts());
 
-    populationSize = 500;
-    maxGeneration = 1;
+    populationSize = 250;
+    maxGeneration = 1500;
     crossover_pb = 1.0;
     mutation_pb = 0.5;
     tournamentSize = 4;
     bestFittness = 0;
+    initial_image_path = dist_data_path;
 
     const auto weight_function = [](float _length)
     {
@@ -99,7 +139,14 @@ GACT::GACT(ilab::projection& projections){
 
 distribution GACT::Evolution(){
     cout<<"Start evaluation"<<endl;
-    init_population();
+    distribution initial_dist(initial_image_path);
+    if(initial_dist.empty()){
+        cout<<"normal population method"<<endl;
+        init_population();
+    }else{
+        cout<<"population method with Initial Distribution"<<endl;
+        init_population_with_initial_dist(initial_dist);
+    }
     projected_points =  projector.calculate_projected_points(population[0].gene,p_data.angles());
     cout<<"=====Evaluated "<< population.size() << " individuals====="<<endl;
     generation=1;
@@ -134,7 +181,9 @@ distribution GACT::Evolution(){
         cout<<"Max : "<<bestFittness<<endl<<endl;
 
         logging<<generation<<","<<bestFittness<<endl;
-        save_individual(bestIndividual,generation);
+        if(generation%10 == 0) {
+            save_individual(bestIndividual, generation);
+        }
         cout<<endl;
     }
     division_each_angles(bestIndividual);
@@ -157,8 +206,11 @@ void GACT::save_individual(Individual ind,int generation){
     for(int j = 0; j < ind.gene.width(); j++) {
         for (int k = 0; k < ind.gene.height(); k++){
             if(ind.gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::quantity) {
-                ind.gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) +=1 ;
+                ind.gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) += 1;
+            }else if(ind.gene.identity(static_cast<size_t>(j), static_cast<size_t>(k), 0)==ilab::blank_type::outside){
+                ind.gene.quantity(static_cast<size_t>(j), static_cast<size_t>(k), 0) = 1;
             }
+
         }
     }
     distribution save_density;
@@ -207,8 +259,28 @@ void GACT::init_population() {
         i = Individual();
         i.initialize(m_DimensionX,m_DimensionY);
     }
+    save_individual(population[0],0);
 
 }
+
+void GACT::init_population_with_initial_dist(distribution initial_dist) {
+    population.resize(populationSize);
+    newGeneration.resize(populationSize);
+
+    if(initial_dist.width()!=m_DimensionX || initial_dist.height()!=m_DimensionY){
+        cout<<"Size did not match"<<endl;
+        init_population();
+        return;
+    }
+
+    for(auto &&i : population){
+        i = Individual();
+        i.initialize(m_DimensionX,m_DimensionY,initial_dist);
+    }
+    save_individual(population[0],0);
+
+}
+
 
 void GACT::selection() {
     vector<Individual> tournament;
@@ -241,8 +313,6 @@ void GACT::crrossover() {
             child[0] = population[i];
             child[1] = population[i + median];
 
-            //Create a child Individuals
-            //Create four random number in a range of Individual size
             uniform_real_distribution<> rand_r(0,population[i].gene.width() / 2.0f);
             uniform_real_distribution<> rand_theta(0,2 * 3.141592f);
             double r = rand_r(eng);
@@ -359,6 +429,7 @@ void GACT::mutate(){
             }
         }
     }
+
 
 }
 
