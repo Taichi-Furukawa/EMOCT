@@ -32,7 +32,10 @@ class Individual
 public:
     //data
     distribution gene;
-    mutable double	fitness;
+    mutable float fitness;
+
+    //property
+    float random_maximum;
 
     //operator
     bool operator<(const Individual& individual) const;
@@ -79,8 +82,9 @@ private:
     int tournamentSize;
     double crossover_pb;
     double mutation_pb;
-
     double bestFittness;
+
+    float random_maximum;
     string initial_image_path;
     Individual bestIndividual;
 

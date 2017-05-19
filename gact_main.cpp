@@ -59,7 +59,7 @@ int main(int argc, char* argv[])
 		dist_data = argv[2];
 	}
 
-	GACT gact(projection,dist_data);
+	GACT gact(projection,dist_data);//call GACT
 	gact.Evolution();
 
 

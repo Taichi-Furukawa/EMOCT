@@ -16,5 +16,5 @@ set(SOURCE_FILES
         ilab/distribution.h
         ilab/projection.h
         ilab/projector.h
-         )
+        EMO.cpp EMO.h InverseDomain.cpp InverseDomain.h)
 add_executable(EMOCT ${SOURCE_FILES})

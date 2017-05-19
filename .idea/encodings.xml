@@ -4,13 +4,6 @@
     <file url="file://$PROJECT_DIR$/ART.cpp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CTUtility.cpp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/CUDAMath.h" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/DensityDistribution.cpp" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/DensityDistribution.h" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ProjectionData.cpp" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/ProjectionData.h" charset="Shift_JIS" />
-    <file url="file://$PROJECT_DIR$/ga2k.cpp" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/matrix.h" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/libs/table.h" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/projection.h" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ga2k_example/ga2k.cpp" charset="UTF-8" />
   </component>
 </project>

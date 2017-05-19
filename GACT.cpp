@@ -17,7 +17,7 @@
 #include "mtrand.h"
 #include <iostream>
 
-class projection;
+//class projection;
 
 using namespace std;
 using namespace ilab;
@@ -35,7 +35,7 @@ Individual::Individual()
 void Individual::initialize(size_t x, size_t y) {
     random_device rd;
     mt19937_64 engine(rd());
-    uniform_real_distribution<float> dist(0,3);
+    uniform_real_distribution<float> dist(0,random_maximum);
     gene.resize(x, y,1);
     for(auto&& g : gene.quantities()){
         g = dist(engine);
@@ -100,6 +100,7 @@ bool Individual::operator<(const Individual& individual) const
 }
 
 float Individual::gaussian_noise(float mu, float sigma) {
+    //対数正規分布だから名前変えろ
     random_device rd;
     mt19937_64 engine(rd());
     uniform_real_distribution<float> dist(0,1);
@@ -148,6 +149,9 @@ distribution GACT::Evolution(){
         init_population_with_initial_dist(initial_dist);
     }
     projected_points =  projector.calculate_projected_points(population[0].gene,p_data.angles());
+
+    random_maximum=3.0;
+
     cout<<"=====Evaluated "<< population.size() << " individuals====="<<endl;
     generation=1;
     ofstream logging;
@@ -178,7 +182,7 @@ distribution GACT::Evolution(){
         cout<<"end fittness"<<endl;
         best_individual();
         elite = bestIndividual;
-        cout<<"Max : "<<bestFittness<<endl<<endl;
+        cout<<"Max : "<<fixed<<bestFittness<<endl<<endl;
 
         logging<<generation<<","<<bestFittness<<endl;
         if(generation%10 == 0) {
@@ -258,6 +262,7 @@ void GACT::init_population() {
     for(auto &&i : population){
         i = Individual();
         i.initialize(m_DimensionX,m_DimensionY);
+        i.random_maximum=random_maximum;
     }
     save_individual(population[0],0);
 
@@ -276,6 +281,7 @@ void GACT::init_population_with_initial_dist(distribution initial_dist) {
     for(auto &&i : population){
         i = Individual();
         i.initialize(m_DimensionX,m_DimensionY,initial_dist);
+        i.random_maximum=random_maximum;
     }
     save_individual(population[0],0);
 
@@ -371,7 +377,7 @@ void GACT::mutate(){
 
     double probability;
     mt19937_64 engine(1);
-    uniform_real_distribution<float> distribution(0,3);
+    uniform_real_distribution<float> distribution(0,random_maximum);
     random_device rd; // obtain a random number from hardware
     mt19937 eng(rd()); // seed the generator
 

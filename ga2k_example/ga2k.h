@@ -55,7 +55,7 @@
 using namespace std;
 using namespace arch;
 
-#include "mtrand.h"
+#include "../mtrand.h"
 #include "randring.h"
 
 #define INITIAL_POPULATION_FILE "design_variable.ini"
