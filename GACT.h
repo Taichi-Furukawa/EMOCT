@@ -32,7 +32,7 @@ class Individual
 public:
     //data
     distribution gene;
-    mutable float fitness;
+    double fitness;
 
     //property
     float random_maximum;

@@ -14,9 +14,7 @@ TdrLevel: REG_DWORD
 
 #include <iostream>
 #include "ilab.h"
-#include <sstream>
-#include <string>
-#include "GACT.h"
+#include "EMO.h"
 
 using namespace Math;
 using namespace ilab;
@@ -59,16 +57,18 @@ int main(int argc, char* argv[])
 		dist_data = argv[2];
 	}
 
-	GACT gact(projection,dist_data);//call GACT
-	gact.Evolution();
+	//GACT gact(projection,dist_data);//call GACT
+	//gact.Evolution();
+    EMO emo(projection);//call EMO
 
-
+    /*
 	const std::string densityFileName("3D-DENSITY");
 	if(!reconstruction.save(densityFileName))
 	{
 		std::cout << "Can't save 3D-Density" << std::endl;
 		return 0;
 	}
+    */
 
 	std::cout << "Complete" << std::endl;
 	return 0;

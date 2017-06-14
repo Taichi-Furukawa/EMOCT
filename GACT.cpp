@@ -46,24 +46,19 @@ void Individual::initialize(size_t x, size_t y) {
     };
     const float center_x = static_cast<float>(gene.width()) / 2.0f;
     const float center_y = static_cast<float>(gene.height()) / 2.0f;
-        for (size_t y = 0; y < gene.height(); y++)
-        {
-            for (size_t x = 0; x < gene.width(); x++)
-            {
-                if (intersect(static_cast<float>(x) - center_x, static_cast<float>(y) - center_y, center_y))
-                {
-                    gene.identity(x, y, 0) = ilab::blank_type::quantity;
-                }
-                else
-                {
-                    gene.identity(x, y, 0) = ilab::blank_type::outside;
-                }
+    for (size_t y = 0; y < gene.height(); y++) {
+        for (size_t x = 0; x < gene.width(); x++){
+            if (intersect(static_cast<float>(x) - center_x, static_cast<float>(y) - center_y, center_y)){
+                gene.identity(x, y, 0) = ilab::blank_type::quantity;
+            }else{
+                gene.identity(x, y, 0) = ilab::blank_type::outside;
             }
         }
+    }
 
-    fitness = -DBL_MAX;
+    fitness = -FLT_MAX;
 }
-
+//既知情報としてなんらかのdistributionが与えられた際の初期個体生成
 void Individual::initialize(size_t x, size_t y,distribution initial_dist) {
     gene.resize(x, y,1);
     for(auto&& g : gene.quantities()){
@@ -91,7 +86,7 @@ void Individual::initialize(size_t x, size_t y,distribution initial_dist) {
         }
     }
 
-    fitness = -DBL_MAX;
+    fitness = -FLT_MAX;
 }
 
 bool Individual::operator<(const Individual& individual) const
@@ -194,7 +189,7 @@ distribution GACT::Evolution(){
     return bestIndividual.gene;
 
 }
-
+//母集団から最も適応度の高い個体を探す
 void GACT::best_individual(){
     double f = -DBL_MAX;
     for(auto&& ind:population){
@@ -205,7 +200,7 @@ void GACT::best_individual(){
         }
     }
 }
-
+//個体の保存．命名のために世代数を渡す
 void GACT::save_individual(Individual ind,int generation){
     for(int j = 0; j < ind.gene.width(); j++) {
         for (int k = 0; k < ind.gene.height(); k++){
@@ -226,7 +221,7 @@ void GACT::save_individual(Individual ind,int generation){
     }
     save_density.save("result/3d_density_gen" + to_string(generation));
 }
-
+//各角度における距離を算出して保存
 void GACT::division_each_angles(Individual ind){
     double f=0.0;
     distribution b = ind.gene;
@@ -254,7 +249,7 @@ void GACT::division_each_angles(Individual ind){
         fclose( fp );
     }
 }
-
+//母集団を用意する
 void GACT::init_population() {
     population.resize(populationSize);
     newGeneration.resize(populationSize);
@@ -267,7 +262,7 @@ void GACT::init_population() {
     save_individual(population[0],0);
 
 }
-
+//母集団を用意する．なんらかの既知情報が与えられてる時こちらを使う(overrideすればいいのに)
 void GACT::init_population_with_initial_dist(distribution initial_dist) {
     population.resize(populationSize);
     newGeneration.resize(populationSize);
@@ -287,7 +282,7 @@ void GACT::init_population_with_initial_dist(distribution initial_dist) {
 
 }
 
-
+//選択処理
 void GACT::selection() {
     vector<Individual> tournament;
     tournament.resize(static_cast<size_t>(tournamentSize));
@@ -304,7 +299,7 @@ void GACT::selection() {
     for(unsigned i = 0; i < population.size(); i++)
         population[i] = newGeneration[i];
 }
-
+//交叉処理
 void GACT::crrossover() {
 
     int median;
@@ -372,7 +367,7 @@ void GACT::crrossover() {
         }
     }
 }
-
+//突然変異処理
 void GACT::mutate(){
 
     double probability;
@@ -438,7 +433,7 @@ void GACT::mutate(){
 
 
 }
-
+//母集団に含まれる個体に適応度を与える
 void GACT::fittness(){
     for(auto&& ind:population){
         double f=0.0;
