@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libnsga2-static.a  CMakeFiles/nsga2-static.dir/src/nsga2/global.cpp.o CMakeFiles/nsga2-static.dir/src/nsga2/random.cpp.o CMakeFiles/nsga2-static.dir/src/nsga2/NSGA2.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libnsga2-static.a

@@ -114,7 +114,12 @@ public:
     info_type& infomation(size_t _x, size_t _y) {
         return m_infomation.at(_y * m_width + _x);
     }
+
     void visualize();
+    void const shift(MatrixXf& freq) const;
+    void const shift(MatrixXcf& freq) const;
+    MatrixXcf quantity2matrix();
+    void matrix2quantity(MatrixXcf mat);
 
 private:
     size_t m_width;

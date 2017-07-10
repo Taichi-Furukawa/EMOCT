@@ -13,11 +13,86 @@ TdrLevel: REG_DWORD
 */
 
 #include <iostream>
+#include <omp.h>
 #include "ilab.h"
 #include "EMO.h"
 
 using namespace Math;
 using namespace ilab;
+
+int get_irho() {
+    constexpr float rho0 = 1.0f;
+    constexpr size_t cameras = 4;
+    constexpr float dtheta = 180.0f / static_cast<float>(cameras);
+
+    const std::string model_path = "experiment_data/no_object(196,196,1).cfd";
+    const std::string output_path = "pdata.prj";
+
+    // Calculate projection angles.
+    std::vector<float> angles(cameras);
+    for (size_t i = 0; i < angles.size(); i++)
+    {
+        angles[i] = dtheta * static_cast<float>(i);
+    }
+
+    // Load the density distribution;
+    ilab::distribution rho(model_path);
+    if (rho.empty())
+    {
+        return -1;
+    }
+
+    // Calculate the dimensionless number.
+    for (auto& r : rho.quantities())
+    {
+        r = (r - rho0) / rho0;
+    }
+
+    // Calculate the blanks.
+    const auto intersect = [](float _x, float _y, float _r)
+    {
+        return _x * _x + _y * _y <= _r * _r;
+    };
+
+    const float center_x = static_cast<float>(rho.width()) / 2.0f;
+    const float center_y = static_cast<float>(rho.height()) / 2.0f;
+    for (size_t z = 0; z < rho.depth(); z++)
+    {
+        for (size_t y = 0; y < rho.height(); y++)
+        {
+            for (size_t x = 0; x < rho.width(); x++)
+            {
+                if (intersect(static_cast<float>(x) - center_x, static_cast<float>(y) - center_y, center_y))
+                {
+                    rho.identity(x, y, z) = ilab::blank_type::quantity;
+                }
+                else
+                {
+                    rho.identity(x, y, z) = ilab::blank_type::outside;
+                }
+            }
+        }
+    }
+
+    // Calculate the projection data.
+    const auto weight_function = [](float _length)
+    {
+        //return 1.0 - _length;
+        return 1.0f - 3.0f * _length * _length + 2.0f * _length * _length * _length;
+    };
+    ilab::projector projector(weight_function);
+    ilab::projection irho = projector.project(rho, angles);
+    for(auto &r:irho.angles()){
+        r = r* static_cast<float>(M_PI/180.0);
+    }
+    // Save the result at the PRJ format file.
+    irho.save(output_path);
+    InverseDomain inv(irho);
+    inv.save_notshift("new_p_data.png");
+
+    return 0;
+}
+
 
 int main(int argc, char* argv[])
 {
@@ -59,7 +134,15 @@ int main(int argc, char* argv[])
 
 	//GACT gact(projection,dist_data);//call GACT
 	//gact.Evolution();
+#pragma omp parallel
+    {
+        // ここがコア数分だけ並列に実行される。１コアだと１つです。
+        printf("Hello, World ! %d of %d\n", omp_get_thread_num(), omp_get_num_threads());
+    }
+
+    //get_irho();
     EMO emo(projection);//call EMO
+    emo.evolution();
 
     /*
 	const std::string densityFileName("3D-DENSITY");

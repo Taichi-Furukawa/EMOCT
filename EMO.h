@@ -15,6 +15,11 @@
 #include "CUDAMath.h"
 #include "ilab.h"
 #include "InverseDomain.h"
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/core/eigen.hpp>
+#include <Eigen/Dense>
+#include <unsupported/Eigen/FFT>
 
 
 using namespace std;
@@ -29,6 +34,7 @@ public:
     float fitness1;
     float fitness2;
     int rank;
+    float local_distance;
 
     //property
     float random_maximum;
@@ -54,28 +60,27 @@ private:
     void mutate();
     void fittness();
     void best_individual();
-    void save_individual(Individual ind,int gen);
-    InverseDomain gs_algorithm(Individual &in);
+    void save_individual(Individual ind,int gen,int label);
+    Individual gs_algorithm(Individual in);
+    void check_NaN();
 
     unsigned int		m_DimensionX;
     unsigned int		m_DimensionY;
     unsigned int		m_DimensionZ;
     unsigned int		m_DimensionI;
     projection p_data;
-    ilab::projector projector;
-    vector<distribution> projected_points;
 
     int maxGeneration;
     int generation;
-    size_t populationSize;
+    size_t searchSize;
     size_t archiveSize;
-    double crossover_pb;
-    double mutation_pb;
-    double bestFittness;
+    float crossover_pb;
+    float mutation_pb;
+    float bestFittness;
     int iterationOfGS;
     Individual bestIndividual;
     vector<Individual> archive_population;
-    vector<Individual> new_population;
+    vector<Individual> search_population;
     priority_queue<Individual> elites;
     Individual elite;
 
