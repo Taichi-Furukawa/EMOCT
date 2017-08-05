@@ -20,6 +20,7 @@ TdrLevel: REG_DWORD
 using namespace Math;
 using namespace ilab;
 
+/*
 int get_irho() {
     constexpr float rho0 = 1.0f;
     constexpr size_t cameras = 4;
@@ -92,6 +93,21 @@ int get_irho() {
 
     return 0;
 }
+ */
+
+projection miss_pdata_center(projection p,int r,int saveflag){
+    const int center_y = static_cast<int>(p.height()) / 2;
+    for(int i=0;i<p.counts();i++){
+        for(int t=center_y-r;t<center_y+r;t++){
+            p.quantity(0, static_cast<size_t>(t), static_cast<size_t>(i)) = 0.0f;
+
+        }
+    }
+    if(saveflag==1){
+        p.save("p_data/no_object_missing("+to_string(p.height())+","+to_string(p.height())+","+to_string(p.width())+")_"+to_string(p.counts())+".prj");
+    }
+    return p;
+}
 
 
 int main(int argc, char* argv[])
@@ -132,8 +148,6 @@ int main(int argc, char* argv[])
 		dist_data = argv[2];
 	}
 
-	//GACT gact(projection,dist_data);//call GACT
-	//gact.Evolution();
 #pragma omp parallel
     {
         // ここがコア数分だけ並列に実行される。１コアだと１つです。
@@ -143,7 +157,9 @@ int main(int argc, char* argv[])
     //get_irho();
     EMO emo(projection);//call EMO
     emo.evolution();
-
+    //projection = miss_pdata_center(projection,20,0);
+    //GACT gact(projection,dist_data);//call GACT
+    //gact.Evolution();
     /*
 	const std::string densityFileName("3D-DENSITY");
 	if(!reconstruction.save(densityFileName))

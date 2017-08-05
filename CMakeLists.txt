@@ -16,7 +16,7 @@ set(SOURCE_FILES
         ilab/distribution.h
         ilab/projection.h
         ilab/projector.h
-        EMO.cpp EMO.h
+        EMO.h EMO.cpp
         InverseDomain.cpp InverseDomain.h)
 
 include_directories(src)

@@ -20,6 +20,7 @@
 #include <opencv2/core/eigen.hpp>
 #include <Eigen/Dense>
 #include <unsupported/Eigen/FFT>
+#include <omp.h>
 
 
 using namespace std;

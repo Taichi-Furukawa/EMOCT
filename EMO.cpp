@@ -82,7 +82,6 @@ void make_p_data(projection &p){
 void make_p_data(projection &p ,size_t angle_count){
     distribution baseDist("experiment_data/no_object(196,196,1)-1.cfd");
     InverseDomain baseInv(baseDist);
-    MatrixXcf mat = baseInv.quantity2matrix();
     projection p_new(p.width(),p.height(), angle_count);
     float dtheta = 180.0f / static_cast<float>(angle_count);
     vector<float> angles(angle_count);
@@ -95,11 +94,11 @@ void make_p_data(projection &p ,size_t angle_count){
     for (int i = 0; i < p_new.counts(); i++) {
         vector<complex<float>> freq(0);
         vector<float> time;
-        for (int f = 0; f < p_new.height(); f++) {
+        for (int f=0;f<p_new.height();f++) {
             float r;
-            float theta = p_new.angle(static_cast<size_t>(i));
-            if (f >= p_new.height() / 2) {
-                r = p_new.height() / 2 - (f - p_new.height() / 2);
+            float theta=p_new.angle(static_cast<size_t>(i));
+            if (f>=p_new.height()/2) {
+                r = p_new.height()/2-(f-p_new.height()/2);
                 int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(p_new.height()/2)));
                 int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_new.height()/2)));
                 complex<float> s = baseInv.quantity(static_cast<size_t>(x), static_cast<size_t>(y));
@@ -142,7 +141,8 @@ EMO::EMO(projection &projections) {
     distribution dist("experiment_data/no_object(196,196,1)-1.cfd");
     InverseDomain invImg(dist);
     invImg.save_notshift("inverseimage.png");
-    make_p_data(p_data,4);
+    InverseDomain compareInv = invImg;
+    make_p_data(p_data,p_data.counts());
     cout<<""<<endl;
     FFT<float> FFT;
     vector<complex<float>> freq;
@@ -154,19 +154,20 @@ EMO::EMO(projection &projections) {
         //dはpのi番目の投影データが格納された１次元配列
         FFT.fwd(freq, d);//fftする
 
-        for (int f = 0; f < freq.size(); f++) {
+        for (int f=0; f<freq.size();f++) {
             float r;
             float theta = p_data.angle(static_cast<size_t>(i));
-            if (f >= freq.size() / 2) {
-                r = freq.size() / 2 - (f - freq.size() / 2);
-                int x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
+            if (f>=freq.size()/2) {
+                r = freq.size()/2-(f-freq.size()/2);
+                int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(p_data.height()/2)));
                 int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2)));
+                /*
                 if(i == (p_data.counts()/2)){
-                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2+1)));
+                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
                 }else if(i!=0){
-                    int x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2+1)));
-                    int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2-1)));
-                }
+                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
+                    y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2)));
+                }*/
                 invImg.quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                 invImg.infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
             } else{
@@ -178,6 +179,10 @@ EMO::EMO(projection &projections) {
             }
         }
     }
+    /*
+    for(int t=0;t<invImg.quantities().size();t++){
+        invImg.quantities()[t] = complex<float>(abs(invImg.quantities()[t].real())-abs(compareInv.quantities()[t].real()),abs(invImg.quantities()[t].imag())-abs(compareInv.quantities()[t].imag()));
+    }*/
     invImg.save_notshift("inverseimage_with_p.png");
     InverseDomain inv_p_Img(p_data);
     inv_p_Img.save_notshift("inverse_p_data.png");
@@ -650,6 +655,7 @@ void EMO::fittness() {
 #pragma omp parallel for
 #endif
     for(int k=0;k<search_population.size();k++){
+        cout<<omp_get_num_threads()<<endl;
         InverseDomain Gbefore = search_population[k].gene;
         //フーリエ逆変換してgを作る
         InverseDomain g = search_population[k].gene;
@@ -778,10 +784,8 @@ void EMO::save_individual(Individual ind, int gen,int label) {
 
 Individual EMO::gs_algorithm(Individual in) {
     Individual input = in;
-    //input.gene.save_notshift("testDist_inv.png");
     distribution test = input.gene.TwoDimFFT();
     InverseDomain tester(test);
-    //tester.save_notshift("test.png");
     int k = 0;
     while (true){
         distribution dist = input.gene.TwoDimFFT();
@@ -833,8 +837,14 @@ Individual EMO::gs_algorithm(Individual in) {
                 float theta = p_data.angle(static_cast<size_t>(i));
                 if (f >= freq.size() / 2) {
                     r = freq.size() / 2 - (f - freq.size() / 2);
-                    int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(freq.size()/2+1)));
-                    int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(freq.size()/2)));
+                    int x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
+                    int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2)));
+                    if(i == (p_data.counts()/2)){
+                        x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2+1)));
+                    }else if(i!=0){
+                        x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2+1)));
+                        y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2+1)));
+                    }
                     inv.quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                     inv.infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
                     if (isnan(freq[f].real()) || isnan(freq[f].imag())) {

@@ -47,6 +47,8 @@ Eigen/Dense
 -
 unsupported/Eigen/FFT
 -
+omp.h
+-
 
 /Users/furukawa/EMOCT/InverseDomain.cpp
 iostream

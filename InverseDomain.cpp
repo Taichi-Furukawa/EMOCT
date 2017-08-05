@@ -71,8 +71,14 @@ InverseDomain::InverseDomain(ilab::projection p) {
             float theta = p.angle(static_cast<size_t>(i));
             if (f >= freq.size() / 2) {
                 r = freq.size() / 2 - (f - freq.size() / 2);
-                int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(freq.size()/2+1)));
+                int x = abs(static_cast<int> (r*sin(-theta-M_PI)+(freq.size()/2)));
                 int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(freq.size()/2)));
+                if(i == (p.counts()/2)){
+                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(freq.size()/2+1)));
+                }else if(i!=0){
+                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(freq.size()/2+1)));
+                    y = abs(static_cast<int>(r*cos(-theta-M_PI)+(freq.size()/2+1)));
+                }
                 this->quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                 this->infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
             } else {
