@@ -69,22 +69,16 @@ InverseDomain::InverseDomain(ilab::projection p) {
         for(int f=0;f<freq.size();f++){
             float r;
             float theta = p.angle(static_cast<size_t>(i));
-            if (f >= freq.size() / 2) {
-                r = freq.size() / 2 - (f - freq.size() / 2);
-                int x = abs(static_cast<int> (r*sin(-theta-M_PI)+(freq.size()/2)));
-                int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(freq.size()/2)));
-                if(i == (p.counts()/2)){
-                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(freq.size()/2+1)));
-                }else if(i!=0){
-                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(freq.size()/2+1)));
-                    y = abs(static_cast<int>(r*cos(-theta-M_PI)+(freq.size()/2+1)));
-                }
+            if (f>=freq.size()/2) {
+                r = freq.size()/2-(f-freq.size()/2);
+                double x = r*sin(theta+M_PI)+((double)freq.size()/2.0);
+                double y = r*cos(theta+M_PI)+((double)freq.size()/2.0);
                 this->quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                 this->infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
             } else {
                 r = f;
-                int x = static_cast<int>(r*sin(-theta)+(freq.size()/2));
-                int y = static_cast<int>(r*cos(-theta)+(freq.size()/2));
+                double x = r*sin(theta)+((double)freq.size()/2.0);
+                double y = r*cos(theta)+((double)freq.size()/2.0);
                 this->quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                 this->infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
             }

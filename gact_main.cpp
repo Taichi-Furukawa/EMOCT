@@ -20,40 +20,48 @@ TdrLevel: REG_DWORD
 using namespace Math;
 using namespace ilab;
 
-/*
-int get_irho() {
+void dist_normalize(distribution dist){
+    float max=FLT_MIN;
+    float min=FLT_MAX;
+    int begin = 0;
+    int end = 255;
+    for(int i=0;i<dist.quantities().size();i++){
+        if(max<dist.quantities()[i]){
+            max = dist.quantities()[i];
+        }
+        if(min>dist.quantities()[i]){
+            min = dist.quantities()[i];
+        }
+    }
+    for(int i=0;i<dist.quantities().size();i++){
+        dist.quantities()[i] = dist.quantities()[i]*(max - min)/ 255;
+    }
+    dist.save("normalize");
+
+}
+
+void save_newp_data(projection p_data){
     constexpr float rho0 = 1.0f;
-    constexpr size_t cameras = 4;
-    constexpr float dtheta = 180.0f / static_cast<float>(cameras);
-
-    const std::string model_path = "experiment_data/no_object(196,196,1).cfd";
-    const std::string output_path = "pdata.prj";
-
-    // Calculate projection angles.
-    std::vector<float> angles(cameras);
+    size_t cameras = p_data.counts();
+    float dtheta = 180.0f / static_cast<float>(cameras);
+    vector<float> angles(cameras);
     for (size_t i = 0; i < angles.size(); i++)
     {
         angles[i] = dtheta * static_cast<float>(i);
     }
 
-    // Load the density distribution;
-    ilab::distribution rho(model_path);
-    if (rho.empty())
-    {
-        return -1;
-    }
 
-    // Calculate the dimensionless number.
-    for (auto& r : rho.quantities())
-    {
-        r = (r - rho0) / rho0;
-    }
 
-    // Calculate the blanks.
+    distribution rho("experiment_data/no_object(196,196,1).cfd");
     const auto intersect = [](float _x, float _y, float _r)
     {
         return _x * _x + _y * _y <= _r * _r;
     };
+
+    for (auto& r : rho.quantities())
+    {
+        r = (r - rho0) / rho0;
+    }
 
     const float center_x = static_cast<float>(rho.width()) / 2.0f;
     const float center_y = static_cast<float>(rho.height()) / 2.0f;
@@ -81,34 +89,14 @@ int get_irho() {
         //return 1.0 - _length;
         return 1.0f - 3.0f * _length * _length + 2.0f * _length * _length * _length;
     };
+
     ilab::projector projector(weight_function);
+    //vector<distribution> projected_points =  projector.calculate_projected_points(rho,angles);
     ilab::projection irho = projector.project(rho, angles);
-    for(auto &r:irho.angles()){
-        r = r* static_cast<float>(M_PI/180.0);
-    }
+
     // Save the result at the PRJ format file.
-    irho.save(output_path);
-    InverseDomain inv(irho);
-    inv.save_notshift("new_p_data.png");
-
-    return 0;
+    irho.save("p_data/no_object(196,196,1)_"+to_string(dtheta)+"deg.prj");
 }
- */
-
-projection miss_pdata_center(projection p,int r,int saveflag){
-    const int center_y = static_cast<int>(p.height()) / 2;
-    for(int i=0;i<p.counts();i++){
-        for(int t=center_y-r;t<center_y+r;t++){
-            p.quantity(0, static_cast<size_t>(t), static_cast<size_t>(i)) = 0.0f;
-
-        }
-    }
-    if(saveflag==1){
-        p.save("p_data/no_object_missing("+to_string(p.height())+","+to_string(p.height())+","+to_string(p.width())+")_"+to_string(p.counts())+".prj");
-    }
-    return p;
-}
-
 
 int main(int argc, char* argv[])
 {
@@ -154,20 +142,9 @@ int main(int argc, char* argv[])
         printf("Hello, World ! %d of %d\n", omp_get_thread_num(), omp_get_num_threads());
     }
 
-    //get_irho();
+    //save_newp_data(projection);
     EMO emo(projection);//call EMO
     emo.evolution();
-    //projection = miss_pdata_center(projection,20,0);
-    //GACT gact(projection,dist_data);//call GACT
-    //gact.Evolution();
-    /*
-	const std::string densityFileName("3D-DENSITY");
-	if(!reconstruction.save(densityFileName))
-	{
-		std::cout << "Can't save 3D-Density" << std::endl;
-		return 0;
-	}
-    */
 
 	std::cout << "Complete" << std::endl;
 	return 0;

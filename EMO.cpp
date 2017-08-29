@@ -33,7 +33,8 @@ void Individual::initialize(projection p_data){
 
     std::random_device seed_gen;
     std::default_random_engine engine(seed_gen());
-    std::normal_distribution<float> dist(0.0, 1000);
+    //std::normal_distribution<float> dist(0.0, 10.0);結果をとったパラメータ
+    std::normal_distribution<float> dist(0.0, 10.0);
     for(size_t i=0;i<gene.width();i++){
         for(size_t j=0;j<gene.height();j++){
             if(gene.infomation(i,j)==info_type::unknown){
@@ -45,44 +46,10 @@ void Individual::initialize(projection p_data){
 //=============================================================================
 //class EMO
 //=============================================================================
-void make_p_data(projection &p){
-    distribution baseDist("experiment_data/no_object(196,196,1)_outsize0.cfd");
-
-    InverseDomain baseInv(baseDist);
-    projection p_new(p.width(),p.height(),p.counts());
-    FFT<float> FFT;
-    for (int i = 0; i < p.counts(); i++) {
-        vector<complex<float>> freq;
-        vector<float> time;
-        for (int f = 0; f < p.height(); f++) {
-            float r;
-            float theta = p.angle(static_cast<size_t>(i));
-            if (f >= p.height() / 2) {
-                r = p.height() / 2 - (f - p.height() / 2);
-                int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(p.height()/2)));
-                int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p.height()/2)));
-                complex<float> s = baseInv.quantity(static_cast<size_t>(x), static_cast<size_t>(y));
-                freq.push_back(s);
-            } else {
-                r = f;
-                int x = static_cast<int>(r*sin(-theta)+(p.height()/2));
-                int y = static_cast<int>(r*cos(-theta)+(p.height()/2));
-                complex<float> s = baseInv.quantity(static_cast<size_t>(x), static_cast<size_t>(y));
-                freq.push_back(s);
-            }
-        }
-
-        FFT.inv(time,freq);
-        for(int j=0;j<p.height();j++){
-            p_new.quantity(0, static_cast<size_t>(j),static_cast<size_t>(i)) = time[j];
-        }
-    }
-    p.quantities() = p_new.quantities();
-}
 void make_p_data(projection &p ,size_t angle_count){
     distribution baseDist("experiment_data/no_object(196,196,1)-1.cfd");
     InverseDomain baseInv(baseDist);
-    projection p_new(p.width(),p.height(), angle_count);
+    projection p_new(p.width(),baseDist.height(), angle_count);
     float dtheta = 180.0f / static_cast<float>(angle_count);
     vector<float> angles(angle_count);
     for (size_t i = 0; i < angles.size(); i++)
@@ -99,14 +66,17 @@ void make_p_data(projection &p ,size_t angle_count){
             float theta=p_new.angle(static_cast<size_t>(i));
             if (f>=p_new.height()/2) {
                 r = p_new.height()/2-(f-p_new.height()/2);
-                int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(p_new.height()/2)));
-                int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_new.height()/2)));
+                double x = r*sin(theta+M_PI)+((double)p_new.height()/2.0);
+                double y = r*cos(theta+M_PI)+((double)p_new.height()/2.0);
+
+                //cout<<"a "<<(int)x<<", "<<(int)y<<endl;
                 complex<float> s = baseInv.quantity(static_cast<size_t>(x), static_cast<size_t>(y));
                 freq.push_back(s);
             } else {
                 r = f;
-                int x = static_cast<int>(r*sin(-theta)+(p_new.height()/2));
-                int y = static_cast<int>(r*cos(-theta)+(p_new.height()/2));
+                double x = r*sin(theta)+((double)p_new.height()/2.0);
+                double y = r*cos(theta)+((double)p_new.height()/2.0);
+                //cout<<"b "<<static_cast<int>(x)<<", "<<static_cast<int>(y)<<endl;
                 complex<float> s = baseInv.quantity(static_cast<size_t>(x), static_cast<size_t>(y));
                 freq.push_back(s);
             }
@@ -140,10 +110,13 @@ EMO::EMO(projection &projections) {
     //InverseDomain visualize test-----------
     distribution dist("experiment_data/no_object(196,196,1)-1.cfd");
     InverseDomain invImg(dist);
+
     invImg.save_notshift("inverseimage.png");
-    InverseDomain compareInv = invImg;
     make_p_data(p_data,p_data.counts());
     cout<<""<<endl;
+    InverseDomain inv_p_Img(p_data);
+    inv_p_Img.save_notshift("inverse_p_data.png");
+
     FFT<float> FFT;
     vector<complex<float>> freq;
     for (int i = 0; i < p_data.counts(); i++) {
@@ -159,40 +132,27 @@ EMO::EMO(projection &projections) {
             float theta = p_data.angle(static_cast<size_t>(i));
             if (f>=freq.size()/2) {
                 r = freq.size()/2-(f-freq.size()/2);
-                int x = abs(static_cast<int>(r*sin(-theta-M_PI)+(p_data.height()/2)));
-                int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2)));
-                /*
-                if(i == (p_data.counts()/2)){
-                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
-                }else if(i!=0){
-                    x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
-                    y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2)));
-                }*/
+                double x = r*sin(theta+M_PI)+((double)p_data.height()/2.0);
+                double y = r*cos(theta+M_PI)+((double)p_data.height()/2.0);
                 invImg.quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                 invImg.infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
             } else{
                 r = f;
-                int x = static_cast<int>(r*sin(-theta)+(freq.size()/2));
-                int y = static_cast<int>(r*cos(-theta)+(freq.size()/2));
+                double x = r*sin(theta)+((double)p_data.height()/2.0);
+                double y = r*cos(theta)+((double)p_data.height()/2.0);
                 invImg.quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                 invImg.infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
             }
         }
     }
-    /*
-    for(int t=0;t<invImg.quantities().size();t++){
-        invImg.quantities()[t] = complex<float>(abs(invImg.quantities()[t].real())-abs(compareInv.quantities()[t].real()),abs(invImg.quantities()[t].imag())-abs(compareInv.quantities()[t].imag()));
-    }*/
     invImg.save_notshift("inverseimage_with_p.png");
-    InverseDomain inv_p_Img(p_data);
-    inv_p_Img.save_notshift("inverse_p_data.png");
     if(invImg.TwoDimFFT().save("INVERSE")){
         cout<<"done"<<endl;
     }else{
         cout<<"faile"<<endl;
     }
     //InverseDomain visualize test-----------
-
+    cout<<""<<endl;
 }
 void EMO::check_NaN(){
     for(int k=0;k<search_population.size();k++) {
@@ -448,7 +408,7 @@ void EMO::crrossover() {
                                                     {child.block(0, cy, cx, cy)},
                                                     {child.block(cx, 0, cx, cy)}};
 
-            for(int i=0;i<4;i++){
+            for(int i=0;i<10;i++){
                 std::uniform_int_distribution<int> parent_dice(0, static_cast<int>(search_population.size())-1);
                 MatrixXcf parents = search_population[parent_dice(engin)].gene.quantity2matrix();
                 parents_parts[0].push_back(parents.block(cx, cy, cx, cy));
@@ -626,18 +586,20 @@ float e_image(InverseDomain g){
             }
         }
     }
+
     return sum;
 }
 
 float e_pos(InverseDomain g){
     float sum = 0.0f;
-    for(size_t i=0;i<g.width();i++){
-        for(size_t j=0;j<g.height();j++){
-            if(g.identity(i,j)==ilab::blank_type::quantity && g.quantity(i,j).real()<0)  {
-                sum+=abs(g.quantity(i,j).real());
+    for(size_t i=0;i<g.width();i++) {
+        for (size_t j = 0; j < g.height(); j++) {
+            if (g.identity(i, j) == ilab::blank_type::quantity && g.quantity(i, j).real() < 0) {
+                sum += abs(g.quantity(i, j).real());
             }
         }
     }
+
     return sum;
 }
 
@@ -646,6 +608,7 @@ float e_diff(InverseDomain Gafter,InverseDomain Gbefore){
     for(size_t i=0;i<Gafter.quantities().size();i++){
         sum+=abs(Gbefore.quantities()[i]-Gafter.quantities()[i]);
     }
+    sum = sum/(Gbefore.width()*Gbefore.width());
     return sum;
 }
 
@@ -654,8 +617,8 @@ void EMO::fittness() {
 #ifdef _OPENMP
 #pragma omp parallel for
 #endif
+
     for(int k=0;k<search_population.size();k++){
-        cout<<omp_get_num_threads()<<endl;
         InverseDomain Gbefore = search_population[k].gene;
         //フーリエ逆変換してgを作る
         InverseDomain g = search_population[k].gene;
@@ -692,7 +655,7 @@ void EMO::fittness() {
         search_population[k].fitness2 = e_diff(search_population[k].gene,Gbefore);
     }
     /*
-    distribution baseDist("experiment_data/no_object(196,196,1)_outsize0.cfd");
+    distribution baseDist("experiment_data/no_object(196,196,1)_normalize.cfd");
     InverseDomain baseInv(baseDist);
     Individual baseInd;
     baseInd.gene = baseInv;
@@ -731,7 +694,6 @@ void EMO::fittness() {
 
     baseInd=gs_algorithm(baseInd);
     baseInd.fitness2 = e_diff(baseInd.gene,Gbefore);
-
     cout<<""<<endl;
      */
 }
@@ -776,10 +738,11 @@ void EMO::save_individual(Individual ind, int gen,int label) {
         cout<<"faile"<<endl;
     }
     if(ind.gene.TwoDimFFT().save("result/"+to_string(gen)+"gen_density"+to_string(label))){
-        cout<<"save"<<endl;
+        cout<<"save fittness="<<(ind.fitness1+ind.fitness2)<<endl;
     }else{
         cout<<"faile"<<endl;
     }
+
 }
 
 Individual EMO::gs_algorithm(Individual in) {
@@ -835,16 +798,10 @@ Individual EMO::gs_algorithm(Individual in) {
             for (int f = 0; f < freq.size(); f++) {
                 float r;
                 float theta = p_data.angle(static_cast<size_t>(i));
-                if (f >= freq.size() / 2) {
-                    r = freq.size() / 2 - (f - freq.size() / 2);
-                    int x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2)));
-                    int y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2)));
-                    if(i == (p_data.counts()/2)){
-                        x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2+1)));
-                    }else if(i!=0){
-                        x = abs(static_cast<int> (r*sin(-theta-M_PI)+(p_data.height()/2+1)));
-                        y = abs(static_cast<int>(r*cos(-theta-M_PI)+(p_data.height()/2+1)));
-                    }
+                if (f>=freq.size()/2) {
+                    r = freq.size()/2-(f-freq.size()/2);
+                    double x = r*sin(theta+M_PI)+((double)freq.size()/2.0);
+                    double y = r*cos(theta+M_PI)+((double)freq.size()/2.0);
                     inv.quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                     inv.infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
                     if (isnan(freq[f].real()) || isnan(freq[f].imag())) {
@@ -852,8 +809,8 @@ Individual EMO::gs_algorithm(Individual in) {
                     }
                 } else {
                     r = f;
-                    int x = static_cast<int>(r*sin(-theta)+(freq.size()/2));
-                    int y = static_cast<int>(r*cos(-theta)+(freq.size()/2));
+                    double x = r*sin(theta)+((double)freq.size()/2.0);
+                    double y = r*cos(theta)+((double)freq.size()/2.0);
                     inv.quantity(static_cast<size_t>(x), static_cast<size_t>(y)) = freq[f];
                     inv.infomation(static_cast<size_t>(x), static_cast<size_t>(y)) = info_type::known;
                     if (isnan(freq[f].real()) || isnan(freq[f].imag())) {
