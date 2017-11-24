@@ -13,7 +13,6 @@ TdrLevel: REG_DWORD
 */
 
 #include <iostream>
-#include <omp.h>
 #include "ilab.h"
 #include "EMO.h"
 
@@ -52,7 +51,7 @@ void save_newp_data(projection p_data){
 
 
 
-    distribution rho("experiment_data/no_object(196,196,1).cfd");
+    distribution rho("experiment_data/another_layer/no_object(196,196,1)layer35.cfd");
     const auto intersect = [](float _x, float _y, float _r)
     {
         return _x * _x + _y * _y <= _r * _r;
@@ -95,7 +94,20 @@ void save_newp_data(projection p_data){
     ilab::projection irho = projector.project(rho, angles);
 
     // Save the result at the PRJ format file.
-    irho.save("p_data/no_object(196,196,1)_"+to_string(dtheta)+"deg.prj");
+    irho.save("p_data/layer_35/no_object(196,196,1)_"+to_string(dtheta)+"deg.prj");
+}
+
+void save_new_dist_another_layer(distribution dist){
+    size_t layer_number = 34;
+    ilab::distribution new_dist(196,196,1);
+    for(int i=0;i<new_dist.width();i++){
+        for(int j=0;j<new_dist.height();j++){
+            new_dist.quantity(static_cast<size_t>(i),static_cast<size_t>(j),0)=dist.quantity(static_cast<size_t>(i),static_cast<size_t>(j),layer_number);
+            new_dist.quantity(static_cast<size_t>(i),static_cast<size_t>(j),0) = new_dist.quantity(static_cast<size_t>(i),static_cast<size_t>(j),0);
+        }
+    }
+    new_dist.save("new_distribution.cfd");
+
 }
 
 int main(int argc, char* argv[])
@@ -142,9 +154,14 @@ int main(int argc, char* argv[])
         printf("Hello, World ! %d of %d\n", omp_get_thread_num(), omp_get_num_threads());
     }
 
-    //save_newp_data(projection);
+    save_newp_data(projection);
+    //distribution baseDist("experiment_data/no_object(197,197,70).cfd");
+    //save_new_dist_another_layer(baseDist);
     EMO emo(projection);//call EMO
     emo.evolution();
+    //GACT ga(projection,"");
+    //ga.Evolution();
+
 
 	std::cout << "Complete" << std::endl;
 	return 0;

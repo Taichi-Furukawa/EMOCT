@@ -46,8 +46,8 @@ void Individual::initialize(projection p_data){
 //=============================================================================
 //class EMO
 //=============================================================================
-void make_p_data(projection &p ,size_t angle_count){
-    distribution baseDist("experiment_data/no_object(196,196,1)-1.cfd");
+void make_p_data(projection &p ,size_t angle_count,distribution base){
+    distribution baseDist = base;
     InverseDomain baseInv(baseDist);
     projection p_new(p.width(),baseDist.height(), angle_count);
     float dtheta = 180.0f / static_cast<float>(angle_count);
@@ -108,11 +108,11 @@ EMO::EMO(projection &projections) {
     bestFittness = 0;
 
     //InverseDomain visualize test-----------
-    distribution dist("experiment_data/no_object(196,196,1)-1.cfd");
+    distribution dist("experiment_data/another_layer/no_object(196,196,1)layer35.cfd");
     InverseDomain invImg(dist);
 
     invImg.save_notshift("inverseimage.png");
-    make_p_data(p_data,p_data.counts());
+    make_p_data(p_data,p_data.counts(),dist);
     cout<<""<<endl;
     InverseDomain inv_p_Img(p_data);
     inv_p_Img.save_notshift("inverse_p_data.png");
@@ -186,7 +186,7 @@ void EMO::evolution() {
         }
         cout<<"end fittness"<<endl;
         check_NaN();
-
+        save_pareto_set();
         archive_population.clear();
         float distance_max = 0.0;
         vector<vector<Individual>> F;
@@ -822,4 +822,16 @@ Individual EMO::gs_algorithm(Individual in) {
         k++;
         input.gene = inv;
     }
+}
+
+void EMO::save_pareto_set() {
+    ofstream logging;
+    string file_name("result/pareto_");
+    file_name = file_name + to_string(generation) + ".csv";
+    logging.open(file_name,std::ios::out);
+    logging<<"individual,fittness1,fittness2"<<endl;
+    for(int i=0;i<search_population.size();i++){
+        logging<<i<<","<<search_population[i].fitness1<<","<<search_population[i].fitness2<<endl;
+    }
+    logging.close();
 }

@@ -9,14 +9,14 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp -L/usr/local/opt/llv
 set(SOURCE_FILES
         gact_main.cpp
         CUDAMath.h
-        MersenneTwister.h
         mtrand.cpp
+        MersenneTwister.h
         ilab.h
         ilab/art.h
         ilab/distribution.h
         ilab/projection.h
         ilab/projector.h
-        EMO.h EMO.cpp
+        EMO.cpp EMO.h
         InverseDomain.cpp InverseDomain.h)
 
 include_directories(src)

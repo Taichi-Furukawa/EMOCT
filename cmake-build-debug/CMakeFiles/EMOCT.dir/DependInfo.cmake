@@ -16,8 +16,8 @@ set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../src"
   "/usr/local/include/eigen3"
   "/usr/local/Cellar/boost/1.64.0_1/include"
-  "/usr/local/include/opencv"
   "/usr/local/include"
+  "/usr/local/include/opencv"
   )
 
 # Targets to which this target links.

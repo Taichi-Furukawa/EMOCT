@@ -64,6 +64,7 @@ private:
     void save_individual(Individual ind,int gen,int label);
     Individual gs_algorithm(Individual in);
     void check_NaN();
+    void save_pareto_set();
 
     unsigned int		m_DimensionX;
     unsigned int		m_DimensionY;

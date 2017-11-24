@@ -1,4 +1,15 @@
 /Applications/CLion.app/Contents/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/furukawa/EMOCT
+CMake Warning at /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.7/Modules/Platform/Darwin-Initialize.cmake:121 (message):
+  Ignoring CMAKE_OSX_SYSROOT value:
+
+   /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk
+
+  because the directory does not exist.
+Call Stack (most recent call first):
+  /Applications/CLion.app/Contents/bin/cmake/share/cmake-3.7/Modules/CMakeSystemSpecificInitialize.cmake:8 (include)
+  CMakeLists.txt:2 (project)
+
+
 -- Try OpenMP C flag = [ ]
 -- Performing Test OpenMP_FLAG_DETECTED
 -- Performing Test OpenMP_FLAG_DETECTED - Failed
@@ -60,7 +71,8 @@
 -- Performing Test OpenMP_FLAG_DETECTED
 -- Performing Test OpenMP_FLAG_DETECTED - Failed
 -- Could NOT find OpenMP (missing:  OpenMP_C_FLAGS OpenMP_CXX_FLAGS) 
--- Boost version: 1.64.0
+-- Boost version: 1.65.1
+-- Found OpenCV: /usr/local (found version "3.3.1") 
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /Users/furukawa/EMOCT/cmake-build-debug

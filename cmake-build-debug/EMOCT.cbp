@@ -47,8 +47,8 @@
 					<Add directory="/Users/furukawa/EMOCT/src"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/Cellar/boost/1.64.0_1/include"/>
-					<Add directory="/usr/local/include/opencv"/>
 					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/include/opencv"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
@@ -72,8 +72,8 @@
 					<Add directory="/Users/furukawa/EMOCT/src"/>
 					<Add directory="/usr/local/include/eigen3"/>
 					<Add directory="/usr/local/Cellar/boost/1.64.0_1/include"/>
-					<Add directory="/usr/local/include/opencv"/>
 					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/local/include/opencv"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/8.1.0/include"/>
 					<Add directory="/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include"/>
