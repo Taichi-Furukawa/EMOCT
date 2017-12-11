@@ -13,33 +13,133 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63472bc1-697c-44ef-9896-940ab9f01ce4" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/GACT.cpp.o" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/INVERSE" afterPath="$PROJECT_DIR$/INVERSE" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/EMO.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/EMO.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/InverseDomain.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/InverseDomain.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/gact_main.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/gact_main.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/mtrand.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/mtrand.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/EMOCT" afterPath="$PROJECT_DIR$/cmake-build-debug/EMOCT" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inverse_p_data.png" afterPath="$PROJECT_DIR$/inverse_p_data.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inverseimage.png" afterPath="$PROJECT_DIR$/inverseimage.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/inverseimage_with_p.png" afterPath="$PROJECT_DIR$/inverseimage_with_p.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EMO.cpp" afterPath="$PROJECT_DIR$/EMO.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EMO.h" afterPath="$PROJECT_DIR$/EMO.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/DependInfo.cmake" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/DependInfo.cmake" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/build.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/build.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/depend.internal" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/depend.internal" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/depend.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/depend.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/flags.make" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/flags.make" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/link.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/link.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/EMOCT.cbp" afterPath="$PROJECT_DIR$/cmake-build-debug/EMOCT.cbp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/evolution.csv" afterPath="$PROJECT_DIR$/evolution.csv" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gact_main.cpp" afterPath="$PROJECT_DIR$/gact_main.cpp" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/EMOCT.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/dictionaries/furukawa.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ART.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ART.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CTUtility.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CTUtility.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/CUDAMath.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/EMO.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/EMO.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/EMOCT" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/EMOCT.cbp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/GACT.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/GACT.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/INVERSE" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/InverseDomain.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/InverseDomain.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MersenneTwister.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Thumbs.db" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Xorshift.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/art_dist/ART-DENSITY(197,197,70)_15.q" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/art_dist/ART-DENSITY(197,197,70)_20.q" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/art_dist/ART-DENSITY(197,197,70)_30.q" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/art_dist/ART-DENSITY(197,197,70)_45.q" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/Debug/EMOCT" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/Debug/evolution.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeCCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeCXXCompiler.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_C.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeDetermineCompilerABI_CXX.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CMakeSystem.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/CMakeCCompilerId.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdC/a.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/CMakeCXXCompilerId.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/3.7.2/CompilerIdCXX/a.out" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeDirectoryInformation.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeError.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/CXX.includecache" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/DependInfo.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/EMO.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/InverseDomain.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/build.make" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/cmake_clean.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/depend.internal" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/depend.make" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/flags.make" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/gact_main.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/link.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/mtrand.cpp.o" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/progress.make" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FindOpenMP/ompver.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/FindOpenMP/ompver.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/Makefile2" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/TargetDirectories.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-environment.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/cmake.check_cache" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.bin" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/feature_tests.cxx" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/progress.marks" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/EMOCT" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/EMOCT.cbp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/penmp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/div_eachangle.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/evolution.csv" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/another_layer/no_object(196,196,1)layer35-1.cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/another_layer/no_object(196,196,1)layer35.cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/no_object(176, 176, 100).vtk" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/no_object(196,196,1)-1.cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/no_object(196,196,1).cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/no_object(196,196,1)_normalize.cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/no_object(196,196,1)_outsize0.cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/experiment_data/no_object(197,197,70).cfd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ga2k_example/ga2k.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ga2k_example/ga2k.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ga2k_example/ga2k_main.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/gact_main.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ilab.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ilab/art.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ilab/distribution.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ilab/projection.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/ilab/projector.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/inverse_p_data.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/inverseimage.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/inverseimage_with_p.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mtrand.cpp" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/mtrand.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/no_object(196,196,1)_15dig.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/-1projections/no_object(196,196,1)_10.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/-1projections/no_object(196,196,1)_15.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/-1projections/no_object(196,196,1)_20.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/-1projections/no_object(196,196,1)_30.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/-1projections/no_object(196,196,1)_45.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/-1projections/no_object(196,196,1)_5.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/layer_35/no_object(196,196,1)_10.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/layer_35/no_object(196,196,1)_20.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/layer_35/no_object(196,196,1)_30.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/layer_35/no_object(196,196,1)_5.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(196,196,1)_10.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(196,196,1)_15.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(196,196,1)_20.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(196,196,1)_30.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(196,196,1)_45.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(196,196,1)_5.000000deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(197,197,70)_10deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(197,197,70)_15deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(197,197,70)_20deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(197,197,70)_30deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(197,197,70)_45deg.prj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/p_data/no_object(197,197,70)_5deg.prj" afterPath="" />
     </list>
     <ignored path="EMOCT.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -70,7 +170,7 @@
       <file leaf-file-name="gact_main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/gact_main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
+            <state relative-caret-position="699">
               <caret line="66" column="14" lean-forward="false" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
               <folding>
                 <element signature="e#293#312#0" expanded="true" />
@@ -92,7 +192,7 @@
       <file leaf-file-name="EMO.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EMO.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1260">
+            <state relative-caret-position="699">
               <caret line="84" column="40" lean-forward="false" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="40" />
               <folding />
             </state>
@@ -102,8 +202,18 @@
       <file leaf-file-name="EMO.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/EMO.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="337" column="68" lean-forward="true" selection-start-line="337" selection-start-column="68" selection-end-line="337" selection-end-column="68" />
+            <state relative-caret-position="427">
+              <caret line="818" column="24" lean-forward="true" selection-start-line="818" selection-start-column="24" selection-end-line="818" selection-end-column="24" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="distribution.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ilab/distribution.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2460">
+              <caret line="167" column="33" lean-forward="false" selection-start-line="167" selection-start-column="33" selection-end-line="167" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -112,8 +222,8 @@
       <file leaf-file-name="InverseDomain.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InverseDomain.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2535">
-              <caret line="169" column="43" lean-forward="false" selection-start-line="169" selection-start-column="43" selection-end-line="169" selection-end-column="43" />
+            <state relative-caret-position="-1160">
+              <caret line="74" column="60" lean-forward="false" selection-start-line="74" selection-start-column="60" selection-end-line="74" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -123,7 +233,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>==0</find>
       <find>clang</find>
       <find>compiler</find>
       <find>vector&lt;Individual&gt;::iterator itr = P.begin();</find>
@@ -153,6 +262,7 @@
       <find>mtrand</find>
       <find>genrand</find>
       <find>logging</find>
+      <find>rank</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -248,6 +358,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="EMOCT" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMOCT" />
+              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="EMOCT" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ilab" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -545,11 +669,12 @@
       <workItem from="1509675057739" duration="630000" />
       <workItem from="1510754594577" duration="3252000" />
       <workItem from="1511496239510" duration="204000" />
+      <workItem from="1512634653381" duration="3851000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="356937000" />
+    <option name="totallyTimeSpent" value="362114000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -562,21 +687,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24908425" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12820514" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265306" sideWeight="0.4884005" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19387755" sideWeight="0.3901099" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18673469" sideWeight="0.3962149" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19387755" sideWeight="0.3901099" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18673469" sideWeight="0.6037851" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22755101" sideWeight="0.3974359" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22755101" sideWeight="0.3974359" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.492674" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11843712" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.11965812" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.114285715" sideWeight="0.4884005" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2734694" sideWeight="0.4047619" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18673469" sideWeight="0.3962149" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -854,14 +978,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ilab/distribution.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
+        <state relative-caret-position="2460">
           <caret line="167" column="33" lean-forward="false" selection-start-line="167" selection-start-column="33" selection-end-line="167" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InverseDomain.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1160">
+          <caret line="74" column="60" lean-forward="false" selection-start-line="74" selection-start-column="60" selection-end-line="74" selection-end-column="60" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gact_main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
+        <state relative-caret-position="699">
           <caret line="66" column="14" lean-forward="false" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
           <folding>
             <element signature="e#293#312#0" expanded="true" />
@@ -869,17 +1002,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InverseDomain.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2535">
-          <caret line="169" column="43" lean-forward="false" selection-start-line="169" selection-start-column="43" selection-end-line="169" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/EMO.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1260">
+        <state relative-caret-position="699">
           <caret line="84" column="40" lean-forward="false" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="40" />
           <folding />
         </state>
@@ -887,8 +1012,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/EMO.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="337" column="68" lean-forward="true" selection-start-line="337" selection-start-column="68" selection-end-line="337" selection-end-column="68" />
+        <state relative-caret-position="427">
+          <caret line="818" column="24" lean-forward="true" selection-start-line="818" selection-start-column="24" selection-end-line="818" selection-end-column="24" />
           <folding />
         </state>
       </provider>

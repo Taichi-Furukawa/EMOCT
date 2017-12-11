@@ -108,7 +108,7 @@ EMO::EMO(projection &projections) {
     bestFittness = 0;
 
     //InverseDomain visualize test-----------
-    distribution dist("experiment_data/another_layer/no_object(196,196,1)layer35.cfd");
+    distribution dist("experiment_data/no_object(196,196,1)-1.cfd");
     InverseDomain invImg(dist);
 
     invImg.save_notshift("inverseimage.png");
@@ -648,8 +648,17 @@ void EMO::fittness() {
                 g.quantity(static_cast<size_t>(i), static_cast<size_t>(j))=time[j];
             }
         }
-
-
+        /*
+        int count_outer = 0;
+        for(int c=0;c<g.identities().size();c++){
+            if(g.identities()[c]==ilab::blank_type::outside){
+                count_outer++;
+            }
+        }
+        cout<<"outer_count = "<<count_outer<<endl;
+        cout<<"quantity_count = "<<(196*196) - count_outer<<endl;
+        cout<<"inverse_space_count = "<<(196*196)<<endl;
+        */
         search_population[k].fitness1 = e_out(g)+e_image(g)+e_pos(g);
         search_population[k]=gs_algorithm(search_population[k]);
         search_population[k].fitness2 = e_diff(search_population[k].gene,Gbefore);
@@ -829,9 +838,10 @@ void EMO::save_pareto_set() {
     string file_name("result/pareto_");
     file_name = file_name + to_string(generation) + ".csv";
     logging.open(file_name,std::ios::out);
-    logging<<"individual,fittness1,fittness2"<<endl;
+    //fittness1が実空間，fittness2が逆空間
+    logging<<"individual,fittness1,fittness2,rank,local_distance"<<endl;
     for(int i=0;i<search_population.size();i++){
-        logging<<i<<","<<search_population[i].fitness1<<","<<search_population[i].fitness2<<endl;
+        logging<<i<<","<<search_population[i].fitness1<<","<<search_population[i].fitness2<<","<<search_population[i].rank<<","<<search_population[i].local_distance<<endl;
     }
     logging.close();
 }
