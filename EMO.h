@@ -36,6 +36,7 @@ public:
     float fitness2;
     int rank;
     float local_distance;
+    int ID;
 
     //property
     float random_maximum;
