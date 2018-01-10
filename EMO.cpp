@@ -98,7 +98,7 @@ EMO::EMO(projection &projections) {
     m_DimensionZ = static_cast<int>(projections.width());
     m_DimensionI = static_cast<int>(projections.counts());
 
-    maxGeneration =100;
+    maxGeneration =200;
     generation = 0;
     searchSize = 100;
     archiveSize = 100;
@@ -187,32 +187,21 @@ void EMO::evolution() {
         }
         cout<<"end fittness"<<endl;
         check_NaN();
-        save_pareto_set();
-        archive_population.clear();
-        float distance_max = 0.0;
         vector<vector<Individual>> F;//パレートランキング保存
-        vector<Individual > P(search_population.size());
-        P=search_population;
-        //search_pop内で最も離れた個体間距離を計算
-        for(int i=0;i<search_population.size();i++){
-            for(int j=0;j<search_population.size();j++){
-                if(i!=j && distance_max<abs(search_population[i].fitness1-search_population[j].fitness1)+abs(search_population[i].fitness2-search_population[j].fitness2)){
-                    distance_max = abs(search_population[i].fitness1-search_population[j].fitness1)+abs(search_population[i].fitness2-search_population[j].fitness2);
-                }
-            }
-        }
+        Rt.insert(Rt.end(),search_population.begin(),search_population.end());
+        Rt.insert(Rt.end(),archive_population.begin(),archive_population.end());//Rt = S U A
 
-        int r=0;
+        int r=0;//Rtを元にパレートランクを作成
         vector<Individual> temp;
-        while(P.size()!=0) {
+        while(Rt.size()!=0) {
             float best_distance = FLT_MAX;//最も(0,0)へ距離が近い値=最良個体が持つマンハッタン距離
-            for (int i = 0; i < P.size(); i++) {
-                if (best_distance > (P[i].fitness1 + P[i].fitness2)) {
-                    best_distance = P[i].fitness1 + P[i].fitness2;
+            for (int i = 0; i < Rt.size(); i++) {
+                if (best_distance > (Rt[i].fitness1 + Rt[i].fitness2)) {
+                    best_distance = Rt[i].fitness1 + Rt[i].fitness2;
                 }
             }
-            vector<Individual>::iterator itr = P.begin();
-            while (itr != P.end()) {
+            vector<Individual>::iterator itr = Rt.begin();
+            while (itr != Rt.end()) {
                 if ((itr.base()->fitness1 + itr.base()->fitness2) == best_distance) {
                     itr.base()->rank = r;
                     Individual temp_ind;
@@ -224,7 +213,7 @@ void EMO::evolution() {
                     temp_ind.random_maximum = itr.base()->random_maximum;
 
                     temp.push_back(temp_ind);
-                    itr = P.erase(itr);
+                    itr = Rt.erase(itr);
                 } else {
                     itr++;
                 }
@@ -235,93 +224,81 @@ void EMO::evolution() {
             r+=1;
         }
         //Fにパレートランキングを作成
-        archive_population.push_back(F[0][0]);//最良個体e_eliteを追加
-
-        F[0].erase(F[0].begin() + 0);
-        vector<vector<float>> Fi;//環境評価値リスト
-
-        while(archive_population.size()<archiveSize/10) {
-            for (int i = 0; i < F.size(); i++) {
-                vector<float> I_num;
-                for (int j = 0; j < F[i].size(); j++) {
-                    int sum = 0;
-                    for (int k = 0; k < archive_population.size(); k++) {
-                        sum += pow(search_population.size() - archive_population.size(),
-                                   2 * (distance_max - (abs(abs(archive_population[k].fitness1 - F[i][j].fitness1) -
-                                                            abs(archive_population[k].fitness2 - F[i][j].fitness2))) /
-                                                       distance_max));
-                    }
-                    I_num.push_back(F[i][j].rank + sum);
-                }
-                Fi.push_back(I_num);
-            }
-
-            float best_fi = FLT_MAX;
-            int a = 0, b = 0;
-            for (int i = 0; i < F.size(); i++) {
-                for (int j = 0; j < F[i].size(); j++) {
-                    if (Fi[i][j] < best_fi) {
-                        best_fi = Fi[i][j];
-                        a = i;
-                        b = j;
-                    }
-                }
-            }
-            archive_population.push_back(F[a][b]);
-            F[a].erase(F[a].begin() + b);
-            Fi[a].erase(Fi[a].begin() + b);
-        }
-
-        Rt.insert(Rt.end(),search_population.begin(),search_population.end());
+        //混雑度距離計算
         for (int i = 0; i < F.size(); i++) {
-            for (int j = 0; j < F[i].size(); j++) {
-                Rt.push_back(F[i][j]);
+            vector<Individual> original = F[i];
+            int ids = 0;//ランクにIDをふる
+            for(int j=0;j<original.size();j++){
+                original[j].ID = ids;
+                ids++;
             }
-        }
+            vector<Individual> f1_sort = original;
+            vector<Individual> f2_sort = original;
+            sort(f1_sort.begin(),f1_sort.end(),[](const Individual& x, const Individual y){return x.fitness1 > y.fitness1;});
+            sort(f2_sort.begin(),f2_sort.end(),[](const Individual& x, const Individual y){return x.fitness2 > y.fitness2;});
 
-        F.clear();
-        Fi.clear();
-        P.clear();
-        r=0;
-        while(Rt.size()!=0){
-            float best_distance = FLT_MAX;
-            for(int i=0;i<Rt.size();i++){
-                if(best_distance>(Rt[i].fitness1+Rt[i].fitness2)){
-                    best_distance = Rt[i].fitness1+Rt[i].fitness2;
+            for(int j=0;j<original.size();j++){
+                float sum_f1 = 0.0;
+                float sum_f2 = 0.0;
+                int temp_id = original[j].ID;
+                int index_f1 = 0;
+                int index_f2 = 0;
+                for(int k=0;k<f1_sort.size();k++){
+                    if(f1_sort[k].ID == temp_id){
+                        index_f1 = k;
+                    }
+                    if(f2_sort[k].ID == temp_id){
+                        index_f2 = k;
+                    }
                 }
-            }
-            temp.clear();
-            vector<Individual>::iterator itr = Rt.begin();
-            int c = 0;
-            while(itr != Rt.end()){
-                if(c>Rt.size()-1){
-                    break;
-                }
-                if((Rt[c].fitness1+Rt[c].fitness2) == best_distance){
-                    Rt[c].rank = r;
-                    temp.push_back(Rt[c]);
-                    itr = Rt.erase(itr);
+                if(index_f1 == 0 || index_f1 == f1_sort.size()-1 || index_f2 == 0 || index_f2 == f2_sort.size()-1){
+                    original[j].local_distance = FLT_MAX;
                 }else{
-                    itr++;
-                }
-                c+=1;
-            }
-            F.push_back(temp);
-            r+=1;
-        }
-
-        for (int i = 0; i < F.size(); i++) {
-            for (int j = 0; j < F[i].size(); j++) {
-
-                archive_population.push_back(F[i][j]);
-                if(archive_population.size()==archiveSize){
-                    break;
+                    sum_f1 = abs(f1_sort[index_f1-1].fitness1 - f1_sort[index_f1+1].fitness1);
+                    sum_f2 = abs(f2_sort[index_f2-1].fitness2 - f2_sort[index_f2+1].fitness2);
+                    original[j].local_distance = sum_f1+sum_f2;
                 }
             }
+            F[i] = original;
         }
+        archive_population.clear();//A = 0
+        for(int i = 0; i < F.size(); i++){//|A|+|F[i]|<N満たすまでAに追加
+            if(archive_population.size()+F[i].size()<searchSize){
+                archive_population.insert(archive_population.end(),F[i].begin(),F[i].end());
+            }
+        }
+
+        vector<vector<Individual>> temp_F;
+        temp_F = F;
+        int add_count = static_cast<int>(searchSize)- static_cast<int>(archive_population.size());
+        for(int t=0;t<add_count;t++){
+            float distance_max = 0.0;
+            //F内で最も離れた個体間距離を計算
+            for(int i=0;i<temp_F.size();i++){
+                for(int j=0;j<temp_F[i].size();j++){
+                    if(distance_max<temp_F[i][j].local_distance){
+                        distance_max = temp_F[i][j].local_distance;
+                    }
+                }
+            }
+
+            for(int i=0;i<temp_F.size();i++){//個体間距離が大きい個体を挿入
+                for(int j=0;j<temp_F[i].size();j++){
+                    if(distance_max==temp_F[i][j].local_distance){
+                        archive_population.push_back(temp_F[i][j]);
+                        temp_F[i].erase(temp_F[i].begin()+(j));
+                        if(temp_F[i].size()==0){
+                            temp_F.erase(temp_F.begin()+(i));
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+        save_pareto_set();
+        best_individual();
         selection();
         cout<<"end selection"<<endl;
-        best_individual();
         logging<<generation<<","<<bestIndividual.fitness1+bestIndividual.fitness2<<endl;
         crrossover();
         cout<<"end crossover"<<endl;
@@ -345,75 +322,8 @@ void EMO::init_population() {
 
 void EMO::selection() {
     search_population.clear();
-
-    vector<vector<Individual>> F;
     vector<Individual> Rt(archive_population.size());
     copy(archive_population.begin(),archive_population.end(),Rt.begin());
-    int r=0;
-    while(Rt.size()!=0){
-        float best_distance = FLT_MAX;
-        for(int i=0;i<Rt.size();i++){
-            if(best_distance > (Rt[i].fitness1+Rt[i].fitness2)){
-                best_distance = Rt[i].fitness1+Rt[i].fitness2;
-            }
-        }
-        vector<Individual> temp;
-        vector<Individual>::iterator itr = Rt.begin();
-        while(itr != Rt.end()){
-            if((itr.base()->fitness1+itr.base()->fitness2) == best_distance){
-                itr.base()->rank = r;
-                temp.push_back(*itr.base());
-                itr = Rt.erase(itr);
-            }else{
-                itr++;
-            }
-        }
-        F.push_back(temp);
-        r+=1;
-    }
-    Rt.clear();
-    //混雑度距離計算
-    for (int i = 0; i < F.size(); i++) {
-        vector<Individual> original = F[i];
-        int ids = 0;//ランクにIDをふる
-        for(int j=0;j<original.size();j++){
-            original[j].ID = ids;
-            ids++;
-        }
-        vector<Individual> f1_sort = original;
-        vector<Individual> f2_sort = original;
-        sort(f1_sort.begin(),f1_sort.end(),[](const Individual& x, const Individual y){return x.fitness1 > y.fitness1;});
-        sort(f2_sort.begin(),f2_sort.end(),[](const Individual& x, const Individual y){return x.fitness2 > y.fitness2;});
-
-        for(int j=0;j<original.size();j++){
-            float sum_f1 = 0.0;
-            float sum_f2 = 0.0;
-            int temp_id = original[j].ID;
-            int index_f1 = 0;
-            int index_f2 = 0;
-            for(int k=0;k<f1_sort.size();k++){
-                if(f1_sort[k].ID == temp_id){
-                    index_f1 = k;
-                }
-                if(f2_sort[k].ID == temp_id){
-                    index_f2 = k;
-                }
-            }
-            if(index_f1 == 0 || index_f1 == f1_sort.size()-1 || index_f2 == 0 || index_f2 == f2_sort.size()-1){
-                original[j].local_distance = FLT_MAX;
-            }else{
-                sum_f1 = abs(f1_sort[index_f1-1].fitness1 - f1_sort[index_f1+1].fitness1);
-                sum_f2 = abs(f2_sort[index_f2-1].fitness2 - f2_sort[index_f2+1].fitness2);
-                original[j].local_distance = sum_f1+sum_f2;
-            }
-        }
-        F[i] = original;
-    }
-    for (int i = 0; i < F.size(); i++) {
-        for (int j = 0; j < F[i].size(); j++) {
-            Rt.push_back(F[i][j]);
-        }
-    }
 
     vector<Individual> tournament;
     tournament.resize(static_cast<size_t>(2));
@@ -754,28 +664,38 @@ void EMO::fittness() {
 
 void EMO::best_individual() {
     vector<vector<Individual>> F;
-    vector<Individual > P(search_population.size());
-    P=search_population;
-    int r=0;
+    vector<Individual > Rt;
+    Rt.insert(Rt.end(),search_population.begin(),search_population.end());
+    Rt.insert(Rt.end(),archive_population.begin(),archive_population.end());//Rt = S U A
+    int r=0;//Rtを元にパレートランクを作成
     vector<Individual> temp;
-    while(P.size()!=0) {
-        float best_distance = FLT_MAX;
-        for (int i = 0; i < P.size(); i++) {
-            if (best_distance > (P[i].fitness1 + P[i].fitness2)) {
-                best_distance = P[i].fitness1 + P[i].fitness2;
+    while(Rt.size()!=0) {
+        float best_distance = FLT_MAX;//最も(0,0)へ距離が近い値=最良個体が持つマンハッタン距離
+        for (int i = 0; i < Rt.size(); i++) {
+            if (best_distance > (Rt[i].fitness1 + Rt[i].fitness2)) {
+                best_distance = Rt[i].fitness1 + Rt[i].fitness2;
             }
         }
-        vector<Individual>::iterator itr = P.begin();
-        while (itr != P.end()) {
+        vector<Individual>::iterator itr = Rt.begin();
+        while (itr != Rt.end()) {
             if ((itr.base()->fitness1 + itr.base()->fitness2) == best_distance) {
                 itr.base()->rank = r;
-                temp.push_back(*itr.base());
-                itr = P.erase(itr);
+                Individual temp_ind;
+                temp_ind.fitness1 = itr.base()->fitness1;
+                temp_ind.fitness2 = itr.base()->fitness2;
+                temp_ind.local_distance = itr.base()->local_distance;
+                temp_ind.gene = itr.base()->gene;
+                temp_ind.rank = itr.base()->rank;
+                temp_ind.random_maximum = itr.base()->random_maximum;
+
+                temp.push_back(temp_ind);
+                itr = Rt.erase(itr);
             } else {
                 itr++;
             }
         }
         F.push_back(temp);
+
         temp.clear();
         r+=1;
     }
@@ -783,6 +703,7 @@ void EMO::best_individual() {
         save_individual(F[0][i], generation,i);
     }
     bestIndividual = F[0][0];
+    combine(archive_population,generation);
 }
 
 void EMO::save_individual(Individual ind, int gen,int label) {
@@ -889,4 +810,29 @@ void EMO::save_pareto_set() {
         logging<<i<<","<<search_population[i].fitness1<<","<<search_population[i].fitness2<<","<<search_population[i].rank<<","<<search_population[i].local_distance<<endl;
     }
     logging.close();
+}
+
+void EMO::combine(vector<Individual> inds,int gen){
+    InverseDomain combine_image(inds[0].gene.width(),inds[0].gene.height());
+    combine_image.identities() = inds[0].gene.identities();
+    combine_image.informations() = inds[0].gene.informations();
+    for(auto ind:inds){
+        for(int i=0;i<ind.gene.quantities().size();i++){
+            combine_image.quantities()[i] += ind.gene.quantities()[i];
+        }
+    }
+    for(int i=0;i<combine_image.quantities().size();i++){
+        combine_image.quantities()[i] /= static_cast<float>(inds.size());
+    }
+
+    if(combine_image.save_notshift("result/"+to_string(gen)+"gen_combined"+to_string(gen)+".png")){
+        cout<<"save"<<endl;
+    }else{
+        cout<<"faile"<<endl;
+    }
+    if(combine_image.TwoDimFFT().save("result/"+to_string(gen)+"gen_combined"+to_string(gen))){
+        cout<<"save combined result"<<endl;
+    }else{
+        cout<<"faile"<<endl;
+    }
 }

@@ -66,6 +66,7 @@ private:
     Individual gs_algorithm(Individual in);
     void check_NaN();
     void save_pareto_set();
+    void combine(vector<Individual>,int gen);
 
     unsigned int		m_DimensionX;
     unsigned int		m_DimensionY;
@@ -86,7 +87,6 @@ private:
     vector<Individual> search_population;
     priority_queue<Individual> elites;
     Individual elite;
-
 };
 
 
