@@ -61,11 +61,11 @@ private:
     void crrossover();
     void mutate();
     void fittness();
-    void best_individual();
-    void save_individual(Individual ind,int gen,int label);
+    void best_individual(vector<vector<Individual>> F);
+    void save_individual(Individual ind,int gen,string label);
     Individual gs_algorithm(Individual in);
     void check_NaN();
-    void save_pareto_set();
+    void save_pareto_set(vector<vector<Individual>> F);
     void combine(vector<Individual>,int gen);
 
     unsigned int		m_DimensionX;

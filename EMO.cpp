@@ -182,9 +182,11 @@ void EMO::evolution() {
         cout<<"===Generation:" << generation << "==="<<endl;
 
         fittness();
+        /*
         for(auto ind:search_population){
             cout<<ind.fitness1+ind.fitness2<<endl;
         }
+         */
         cout<<"end fittness"<<endl;
         check_NaN();
         vector<vector<Individual>> F;//パレートランキング保存
@@ -193,35 +195,70 @@ void EMO::evolution() {
 
         int r=0;//Rtを元にパレートランクを作成
         vector<Individual> temp;
-        while(Rt.size()!=0) {
-            float best_distance = FLT_MAX;//最も(0,0)へ距離が近い値=最良個体が持つマンハッタン距離
-            for (int i = 0; i < Rt.size(); i++) {
-                if (best_distance > (Rt[i].fitness1 + Rt[i].fitness2)) {
-                    best_distance = Rt[i].fitness1 + Rt[i].fitness2;
+        vector<int> dominated_num(Rt.size(),0);
+        vector<int> dominating_num(Rt.size(),0);
+
+        for(int i=0;i<Rt.size();i++){
+            for(int j=0;j<Rt.size();j++){
+                if(i != j){
+                    if(Rt[i].fitness1<Rt[j].fitness1 && Rt[i].fitness2<Rt[j].fitness2){
+                        dominating_num[i]+=1;
+                    }
+                    if(Rt[i].fitness1>Rt[j].fitness1 && Rt[i].fitness2>Rt[j].fitness2){
+                        dominated_num[i]+=1;
+                    }
                 }
             }
+        }
+        /*for(int i=0;i<Rt.size();i++){
+            cout<<Rt[i].fitness1<<" , "<<Rt[i].fitness2<<" is dominationg : "<<dominating_num[i]<<" and dominated : "<<dominated_num[i]<<endl;
+        }*/
+
+        while(Rt.size()!=0) {
             vector<Individual>::iterator itr = Rt.begin();
             while (itr != Rt.end()) {
-                if ((itr.base()->fitness1 + itr.base()->fitness2) == best_distance) {
-                    itr.base()->rank = r;
-                    Individual temp_ind;
-                    temp_ind.fitness1 = itr.base()->fitness1;
-                    temp_ind.fitness2 = itr.base()->fitness2;
-                    temp_ind.local_distance = itr.base()->local_distance;
-                    temp_ind.gene = itr.base()->gene;
-                    temp_ind.rank = itr.base()->rank;
-                    temp_ind.random_maximum = itr.base()->random_maximum;
+                if(dominated_num[itr - Rt.begin()] == 0){
 
-                    temp.push_back(temp_ind);
+                    itr.base()->rank = r;
+                    temp.push_back(*itr);
                     itr = Rt.erase(itr);
-                } else {
-                    itr++;
+                    dominated_num.erase(dominated_num.begin()+(itr - Rt.begin()));
+                    dominating_num.erase(dominating_num.begin()+(itr - Rt.begin()));
+                }else{
+                    ++itr;
                 }
             }
-            F.push_back(temp);
+            fill(dominating_num.begin(),dominating_num.end(),0);
+            fill(dominated_num.begin(),dominated_num.end(),0);
+            for(int i=0;i<Rt.size();i++){
+                for(int j=0;j<Rt.size();j++){
+                    if(i != j){
+                        if(Rt[i].fitness1<Rt[j].fitness1 && Rt[i].fitness2<Rt[j].fitness2){
+                            dominating_num[i]+=1;
+                        }
+                        if(Rt[i].fitness1>Rt[j].fitness1 && Rt[i].fitness2>Rt[j].fitness2){
+                            dominated_num[i]+=1;
+                        }
+                    }
+                }
+            }
+            /*
+            for(int i=0;i<temp.size();i++){
+                for(int j=0;j<Rt.size();j++){
+                    if(temp[i].fitness1<Rt[j].fitness1 && temp[i].fitness2<Rt[j].fitness2){
+                        dominated_num[j]-=1;
+                    }
+                }
+            }
+             */
 
+            F.push_back(temp);
             temp.clear();
             r+=1;
+        }
+        cout<<"F size : "<<F.size()<<endl;
+        for(int i=0;i<F.size();i++){
+            cout<<"pareto rank" <<i<<" size : "<<F[i].size()<<endl;
         }
         //Fにパレートランキングを作成
         //混雑度距離計算
@@ -267,10 +304,12 @@ void EMO::evolution() {
                 archive_population.insert(archive_population.end(),F[i].begin(),F[i].end());
             }
         }
+        cout<<"archive size first : "<<archive_population.size()<<endl;
 
         vector<vector<Individual>> temp_F;
         temp_F = F;
         int add_count = static_cast<int>(searchSize)- static_cast<int>(archive_population.size());
+        cout<<"will add : "<<add_count<<endl;
         for(int t=0;t<add_count;t++){
             float distance_max = 0.0;
             //F内で最も離れた個体間距離を計算
@@ -290,13 +329,15 @@ void EMO::evolution() {
                         if(temp_F[i].size()==0){
                             temp_F.erase(temp_F.begin()+(i));
                         }
-                        break;
+                        j = static_cast<int>(temp_F[i].size()-1);
+                        i = static_cast<int>(temp_F.size()-1);
                     }
                 }
             }
         }
-        save_pareto_set();
-        best_individual();
+        cout<<"archive size second : "<<archive_population.size()<<endl;
+        save_pareto_set(F);
+        best_individual(F);
         selection();
         cout<<"end selection"<<endl;
         logging<<generation<<","<<bestIndividual.fitness1+bestIndividual.fitness2<<endl;
@@ -662,62 +703,53 @@ void EMO::fittness() {
      */
 }
 
-void EMO::best_individual() {
-    vector<vector<Individual>> F;
-    vector<Individual > Rt;
-    Rt.insert(Rt.end(),search_population.begin(),search_population.end());
-    Rt.insert(Rt.end(),archive_population.begin(),archive_population.end());//Rt = S U A
-    int r=0;//Rtを元にパレートランクを作成
-    vector<Individual> temp;
-    while(Rt.size()!=0) {
-        float best_distance = FLT_MAX;//最も(0,0)へ距離が近い値=最良個体が持つマンハッタン距離
-        for (int i = 0; i < Rt.size(); i++) {
-            if (best_distance > (Rt[i].fitness1 + Rt[i].fitness2)) {
-                best_distance = Rt[i].fitness1 + Rt[i].fitness2;
-            }
-        }
-        vector<Individual>::iterator itr = Rt.begin();
-        while (itr != Rt.end()) {
-            if ((itr.base()->fitness1 + itr.base()->fitness2) == best_distance) {
-                itr.base()->rank = r;
-                Individual temp_ind;
-                temp_ind.fitness1 = itr.base()->fitness1;
-                temp_ind.fitness2 = itr.base()->fitness2;
-                temp_ind.local_distance = itr.base()->local_distance;
-                temp_ind.gene = itr.base()->gene;
-                temp_ind.rank = itr.base()->rank;
-                temp_ind.random_maximum = itr.base()->random_maximum;
-
-                temp.push_back(temp_ind);
-                itr = Rt.erase(itr);
-            } else {
-                itr++;
-            }
-        }
-        F.push_back(temp);
-
-        temp.clear();
-        r+=1;
-    }
-    for(int i=0;i<F[0].size();i++){
-        save_individual(F[0][i], generation,i);
-    }
+void EMO::best_individual(vector<vector<Individual>> F) {
     bestIndividual = F[0][0];
-    combine(archive_population,generation);
+    for(int i=0;i<F[0].size();i++){
+        if(bestIndividual.fitness1+bestIndividual.fitness2 > F[0][i].fitness1 + F[0][i].fitness2){
+            bestIndividual = F[0][i];
+        }
+        save_individual(F[0][i], generation,to_string(i));
+    }
+    save_individual(bestIndividual,generation,"_best");
+    combine(F[0],generation);
 }
 
-void EMO::save_individual(Individual ind, int gen,int label) {
-    if(ind.gene.save_notshift("result/"+to_string(gen)+"gen_inverse"+to_string(label)+".png")){
-        cout<<"save"<<endl;
+void EMO::save_individual(Individual ind, int gen,string label) {
+    if(ind.gene.save_notshift("result/"+to_string(gen)+"gen_inverse"+label+".png")){
     }else{
         cout<<"faile"<<endl;
     }
-    if(ind.gene.TwoDimFFT().save("result/"+to_string(gen)+"gen_density"+to_string(label))){
+    if(ind.gene.TwoDimFFT().save("result/"+to_string(gen)+"gen_density"+label)){
         cout<<"save fittness="<<(ind.fitness1+ind.fitness2)<<endl;
     }else{
         cout<<"faile"<<endl;
     }
 
+}
+
+void EMO::combine(vector<Individual> inds,int gen){
+    InverseDomain combine_image(inds[0].gene.width(),inds[0].gene.height());
+    combine_image.identities() = inds[0].gene.identities();
+    combine_image.informations() = inds[0].gene.informations();
+    for(auto ind:inds){
+        for(int i=0;i<ind.gene.quantities().size();i++){
+            combine_image.quantities()[i] += ind.gene.quantities()[i];
+        }
+    }
+    for(int i=0;i<combine_image.quantities().size();i++){
+        combine_image.quantities()[i] /= static_cast<float>(inds.size());
+    }
+
+    if(combine_image.save_notshift("result/"+to_string(gen)+"gen_combined"+to_string(gen)+".png")){
+    }else{
+        cout<<"faile"<<endl;
+    }
+    if(combine_image.TwoDimFFT().save("result/"+to_string(gen)+"gen_combined"+to_string(gen))){
+        cout<<"save combined result"<<endl;
+    }else{
+        cout<<"faile"<<endl;
+    }
 }
 
 Individual EMO::gs_algorithm(Individual in) {
@@ -799,40 +831,19 @@ Individual EMO::gs_algorithm(Individual in) {
     }
 }
 
-void EMO::save_pareto_set() {
+void EMO::save_pareto_set(vector<vector<Individual>> F) {
     ofstream logging;
     string file_name("result/pareto_");
     file_name = file_name + to_string(generation) + ".csv";
     logging.open(file_name,std::ios::out);
     //fittness1が実空間，fittness2が逆空間
     logging<<"individual,fittness1,fittness2,rank,local_distance"<<endl;
-    for(int i=0;i<search_population.size();i++){
-        logging<<i<<","<<search_population[i].fitness1<<","<<search_population[i].fitness2<<","<<search_population[i].rank<<","<<search_population[i].local_distance<<endl;
+    for(int i=0;i<F.size();i++){
+        for(int j=0;j<F[i].size();j++){
+            logging<<i<<","<<F[i][j].fitness1<<","<<F[i][j].fitness2<<","<<F[i][j].rank<<","<<F[i][j].local_distance<<endl;
+        }
     }
     logging.close();
 }
 
-void EMO::combine(vector<Individual> inds,int gen){
-    InverseDomain combine_image(inds[0].gene.width(),inds[0].gene.height());
-    combine_image.identities() = inds[0].gene.identities();
-    combine_image.informations() = inds[0].gene.informations();
-    for(auto ind:inds){
-        for(int i=0;i<ind.gene.quantities().size();i++){
-            combine_image.quantities()[i] += ind.gene.quantities()[i];
-        }
-    }
-    for(int i=0;i<combine_image.quantities().size();i++){
-        combine_image.quantities()[i] /= static_cast<float>(inds.size());
-    }
 
-    if(combine_image.save_notshift("result/"+to_string(gen)+"gen_combined"+to_string(gen)+".png")){
-        cout<<"save"<<endl;
-    }else{
-        cout<<"faile"<<endl;
-    }
-    if(combine_image.TwoDimFFT().save("result/"+to_string(gen)+"gen_combined"+to_string(gen))){
-        cout<<"save combined result"<<endl;
-    }else{
-        cout<<"faile"<<endl;
-    }
-}

@@ -13,13 +13,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="63472bc1-697c-44ef-9896-940ab9f01ce4" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/gact_main.cpp.o" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/INVERSE" afterPath="$PROJECT_DIR$/INVERSE" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/EMO.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/EMO.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/gact_main.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/gact_main.cpp.o" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/InverseDomain.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/EMOCT.dir/InverseDomain.cpp.o" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/EMOCT" afterPath="$PROJECT_DIR$/cmake-build-debug/EMOCT" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EMO.cpp" afterPath="$PROJECT_DIR$/EMO.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/EMO.h" afterPath="$PROJECT_DIR$/EMO.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/InverseDomain.cpp" afterPath="$PROJECT_DIR$/InverseDomain.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gact_main.cpp" afterPath="$PROJECT_DIR$/gact_main.cpp" />
     </list>
     <ignored path="EMOCT.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,11 +50,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="gact_main.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gact_main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gact_main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="990">
-              <caret line="66" column="14" lean-forward="false" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
+            <state relative-caret-position="336">
+              <caret line="147" column="28" lean-forward="true" selection-start-line="147" selection-start-column="28" selection-end-line="147" selection-end-column="28" />
               <folding>
                 <element signature="e#293#312#0" expanded="true" />
               </folding>
@@ -59,42 +62,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="EMO.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EMO.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="481">
-              <caret line="81" column="22" lean-forward="false" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
-              <folding />
+            <state relative-caret-position="405">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding>
+                <element signature="e#86#102#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EMO.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EMO.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/EMO.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="111" column="86" lean-forward="false" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="vector" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/Cellar/llvm/5.0.0/include/c++/v1/vector">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17895">
-              <caret line="1193" column="0" lean-forward="false" selection-start-line="1193" selection-start-column="0" selection-end-line="1193" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="1755">
+              <caret line="117" column="27" lean-forward="false" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="27" />
+              <folding>
+                <element signature="e#45#64#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -102,21 +89,11 @@
       <file leaf-file-name="InverseDomain.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InverseDomain.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
+            <state relative-caret-position="630">
               <caret line="42" column="59" lean-forward="false" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="59" />
               <folding>
                 <element signature="e#105#125#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="iterator" pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/Cellar/llvm/5.0.0/include/c++/v1/iterator">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23085">
-              <caret line="1539" column="0" lean-forward="false" selection-start-line="1539" selection-start-column="0" selection-end-line="1539" selection-end-column="0" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -134,8 +111,8 @@
       <file leaf-file-name="InverseDomain.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/InverseDomain.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1110">
-              <caret line="74" column="60" lean-forward="false" selection-start-line="74" selection-start-column="60" selection-end-line="74" selection-end-column="60" />
+            <state relative-caret-position="595">
+              <caret line="80" column="58" lean-forward="false" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="58" />
               <folding />
             </state>
           </provider>
@@ -211,11 +188,11 @@
         <option value="$PROJECT_DIR$/CMakeCache.txt" />
         <option value="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" />
         <option value="$PROJECT_DIR$/get_irho.cpp" />
-        <option value="$PROJECT_DIR$/InverseDomain.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/gact_main.cpp" />
         <option value="$PROJECT_DIR$/EMO.h" />
         <option value="$PROJECT_DIR$/EMO.cpp" />
+        <option value="$PROJECT_DIR$/InverseDomain.cpp" />
+        <option value="$PROJECT_DIR$/gact_main.cpp" />
       </list>
     </option>
   </component>
@@ -270,52 +247,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ilab" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="experiment_data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="EMOCT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="experiment_data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="another_layer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -538,7 +469,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="EMOCT" type="CMakeRunConfiguration" factoryName="Application" activateToolWindowBeforeRun="false" PROGRAM_PARAMS="p_data/no_object(197,197,70)_5deg.prj" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="EMOCT" TARGET_NAME="EMOCT" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="EMOCT" RUN_TARGET_NAME="EMOCT">
+    <configuration default="false" name="EMOCT" type="CMakeRunConfiguration" factoryName="Application" activateToolWindowBeforeRun="false" PROGRAM_PARAMS="p_data/no_object(197,197,70)_45deg.prj" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" PROJECT_NAME="EMOCT" TARGET_NAME="EMOCT" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="EMOCT" RUN_TARGET_NAME="EMOCT">
       <envs />
       <method />
     </configuration>
@@ -616,11 +547,18 @@
       <workItem from="1512634653381" duration="5042000" />
       <workItem from="1513670869223" duration="20620000" />
       <workItem from="1514462626404" duration="12246000" />
+      <workItem from="1516255371804" duration="179000" />
+      <workItem from="1516256227937" duration="576000" />
+      <workItem from="1516527168844" duration="34000" />
+      <workItem from="1516595170352" duration="328000" />
+      <workItem from="1516705791096" duration="1713000" />
+      <workItem from="1516957424393" duration="987000" />
+      <workItem from="1517805575360" duration="1172000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="396171000" />
+    <option name="totallyTimeSpent" value="434513000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -633,19 +571,18 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1680" height="1050" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22283272" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265306" sideWeight="0.4884005" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18673469" sideWeight="0.3797314" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19387755" sideWeight="0.3901099" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22755101" sideWeight="0.61904764" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18315019" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3265306" sideWeight="0.4859585" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13877551" sideWeight="0.37606838" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19081633" sideWeight="0.37423688" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22755101" sideWeight="0.6282051" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22755101" sideWeight="0.37179488" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32857144" sideWeight="0.492674" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22755101" sideWeight="0.3809524" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14041515" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.114285715" sideWeight="0.4884005" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2734694" sideWeight="0.4047619" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -703,7 +640,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="285" />
+      <option name="time" value="287" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -885,25 +822,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="18" lean-forward="false" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/GACT.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="256">
           <caret line="29" column="6" lean-forward="false" selection-start-line="29" selection-start-column="6" selection-end-line="29" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GACT.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="732">
-          <caret line="291" column="72" lean-forward="false" selection-start-line="291" selection-start-column="72" selection-end-line="291" selection-end-column="72" />
         </state>
       </provider>
     </entry>
@@ -922,29 +844,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/InverseDomain.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1110">
-          <caret line="74" column="60" lean-forward="false" selection-start-line="74" selection-start-column="60" selection-end-line="74" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gact_main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="990">
-          <caret line="66" column="14" lean-forward="false" selection-start-line="66" selection-start-column="14" selection-end-line="66" selection-end-column="14" />
-          <folding>
-            <element signature="e#293#312#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/Cellar/llvm/5.0.0/include/c++/v1/iterator">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23085">
           <caret line="1539" column="0" lean-forward="false" selection-start-line="1539" selection-start-column="0" selection-end-line="1539" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -952,13 +855,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17895">
           <caret line="1193" column="0" lean-forward="false" selection-start-line="1193" selection-start-column="0" selection-end-line="1193" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/InverseDomain.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
+        <state relative-caret-position="630">
           <caret line="42" column="59" lean-forward="false" selection-start-line="42" selection-start-column="59" selection-end-line="42" selection-end-column="59" />
           <folding>
             <element signature="e#105#125#0" expanded="true" />
@@ -966,19 +868,55 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/GACT.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="121" column="23" lean-forward="true" selection-start-line="121" selection-start-column="23" selection-end-line="121" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/EMO.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="81" column="22" lean-forward="false" selection-start-line="81" selection-start-column="22" selection-end-line="81" selection-end-column="22" />
-          <folding />
+        <state relative-caret-position="405">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding>
+            <element signature="e#86#102#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/EMO.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="111" column="86" lean-forward="false" selection-start-line="111" selection-start-column="86" selection-end-line="111" selection-end-column="86" />
+        <state relative-caret-position="1755">
+          <caret line="117" column="27" lean-forward="false" selection-start-line="117" selection-start-column="18" selection-end-line="117" selection-end-column="27" />
+          <folding>
+            <element signature="e#45#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/InverseDomain.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="80" column="58" lean-forward="false" selection-start-line="80" selection-start-column="58" selection-end-line="80" selection-end-column="58" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gact_main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="147" column="28" lean-forward="true" selection-start-line="147" selection-start-column="28" selection-end-line="147" selection-end-column="28" />
+          <folding>
+            <element signature="e#293#312#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -58,7 +58,7 @@ InverseDomain::InverseDomain(ilab::projection p) {
     }
     FFT<float> FFT;
     vector<complex<float>> freq;
-    for(int i=0;i<p.counts();i++){
+    for(int i=0;i<2;i++){
         vector<float> d(p.height());
         for (int j = 0; j < p.height(); ++j) {
             d[j]=p.quantity(0, static_cast<size_t >(j), static_cast<size_t>(i));

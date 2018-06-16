@@ -154,6 +154,12 @@ int main(int argc, char* argv[])
         printf("Hello, World ! %d of %d\n", omp_get_thread_num(), omp_get_num_threads());
     }
 
+    int a = 10;
+    int b = 20;
+    cout << "a is "<<a <<" and b is " <<b<<endl;
+    a ^= b;
+    cout << "then. a is "<<a <<" and b is " <<b<<endl;
+
     save_newp_data(projection);
     //distribution baseDist("experiment_data/no_object(197,197,70).cfd");
     //save_new_dist_another_layer(baseDist);
